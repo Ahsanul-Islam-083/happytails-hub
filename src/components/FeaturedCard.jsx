@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { Button } from "@heroui/react";
 import { MapPin, DollarSign, Eye, Heart } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const FeaturedCard = ({ pet, idx }) => {
   return (
@@ -43,6 +44,7 @@ const FeaturedCard = ({ pet, idx }) => {
         <div className="absolute inset-0 bg-slate-950/40 backdrop-blur-[6px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden md:flex flex-col items-center justify-center gap-3 p-4 z-20">
           <div className="flex flex-col gap-2.5 w-full max-w-50">
             {/* MATCHED: Your specific custom View Details button properties */}
+           <Link href={`/all-pets/qq`}>
             <Button
               size="sm"
               variant="flat"
@@ -51,6 +53,7 @@ const FeaturedCard = ({ pet, idx }) => {
               <Eye size={14} className="mr-1.5" />
               View Details
             </Button>
+           </Link>
             {/* MATCHED: Your beautiful gold Adopt Now button properties */}
             <Button
               size="sm"
@@ -90,6 +93,16 @@ const FeaturedCard = ({ pet, idx }) => {
 
         {/* MOBILE & TABLET LAYOUT BUTTONS: Using your exact styling updates for consistent smaller screen display */}
         <div className="mt-5 flex gap-3 w-full md:hidden">
+            <Link href={`/all-pets/qq`} className="flex-1">
+              <Button
+                size="sm"
+                variant="flat"
+                className="w-full bg-slate-800/80 hover:bg-slate-700 text-slate-200 rounded-xl border border-slate-700/60 shadow-md h-10 font-medium"
+              >
+                <Eye size={14} className="mr-1.5" />
+                Details
+              </Button>
+            </Link>
           <Button
             size="sm"
             variant="flat"
