@@ -102,7 +102,7 @@ export const Navbar = () => {
                                 </Link>
                                 <Link href="/register">
                                     <Button className="bg-[#45acac] text-white font-medium rounded-full px-6 hover:bg-[#368d8d]">
-                                        Join Free
+                                        Get Started
                                     </Button>
                                 </Link>
                             </div>
@@ -127,11 +127,8 @@ export const Navbar = () => {
                                         <p className="font-bold text-sm text-slate-800 dark:text-slate-100">Welcome back!</p>
                                         <p className="text-xs truncate text-slate-500 dark:text-slate-400">{user.email}</p>
                                     </div>
-                                    <Link href="/dashboard" className="px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-[#45acac]/10 hover:text-[#45acac] flex items-center gap-3 transition-colors">
+                                    <Link href="/add-pet" className="px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-[#45acac]/10 hover:text-[#45acac] flex items-center gap-3 transition-colors">
                                         <LayoutDashboard className="w-4 h-4" /> Dashboard
-                                    </Link>
-                                    <Link href="/settings" className="px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-[#45acac]/10 hover:text-[#45acac] flex items-center gap-3 transition-colors">
-                                        <User className="w-4 h-4" /> Settings
                                     </Link>
                                     <button className="px-4 py-2 w-full text-sm text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30 flex items-center gap-3 transition-colors text-left mt-1 border-t border-slate-50 dark:border-slate-800">
                                         <LogOut className="w-4 h-4" /> Log Out

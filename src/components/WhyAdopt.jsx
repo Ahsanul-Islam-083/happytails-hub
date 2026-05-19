@@ -99,7 +99,7 @@ import { motion } from "framer-motion";
 
 const WhyAdopt = () => {
   return (
-    <section className="py-20 bg-white dark:bg-[#162224] text-slate-800 dark:text-slate-100 overflow-hidden transition-colors">
+    <section className="py-20 bg-[#f8f3e9] dark:bg-[#162224] text-slate-800 dark:text-slate-100 overflow-hidden transition-colors">
       <div className="max-w-7xl mx-auto px-6 md:px-16">
         
         {/* Section Header */}
