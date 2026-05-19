@@ -7,6 +7,7 @@ import Link from "next/link";
 import { LogIn, Eye, EyeOff } from "lucide-react";
 import { Button, FieldError, Form, Input, Label, TextField } from "@heroui/react";
 import { FcGoogle } from "react-icons/fc";
+import { signIn } from "@/lib/auth-client";
 
 export default function Login() {
     const router = useRouter();
@@ -25,6 +26,14 @@ export default function Login() {
         try {
             // Simulate backend validation check call
             await new Promise((resolve) => setTimeout(resolve, 1200));
+
+            const { data: loginData, error: loginError } = await signIn.email({
+                email: data.email,
+                password: data.password,
+            });
+
+        //   console.log({loginData, loginError}, "login response");
+          
 
             // Navigate to Home Dashboard layout
             router.push("/");
@@ -123,9 +132,9 @@ export default function Login() {
 
                     {/* Separator Line Badge Layout */}
                     <div className="relative flex py-2 items-center w-full">
-                        <div className="flex-grow border-t border-slate-200 dark:border-slate-800"></div>
-                        <span className="flex-shrink mx-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Or continue with</span>
-                        <div className="flex-grow border-t border-slate-200 dark:border-slate-800"></div>
+                        <div className="grow border-t border-slate-200 dark:border-slate-800"></div>
+                        <span className="shrink mx-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Or continue with</span>
+                        <div className="grow border-t border-slate-200 dark:border-slate-800"></div>
                     </div>
 
                     {/* Google SSO Login Authentication Trigger Action */}

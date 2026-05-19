@@ -6,6 +6,9 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { Check, Eye, EyeOff } from "lucide-react";
 import { Button, Description, FieldError, Form, Input, Label, TextField } from "@heroui/react";
+import toast from "react-hot-toast";
+// import { error } from "better-auth/api";
+import { signUp } from "@/lib/auth-client";
 
 export default function GetStarted() {
     const router = useRouter();
@@ -35,10 +38,20 @@ export default function GetStarted() {
         try {
             // Simulate backend registration call 
             await new Promise((resolve) => setTimeout(resolve, 1500));
+            // console.log(data,"data");
+            const { data: signUpData, error: signUpError } = await signUp.email({
+                email: data.email,
+                password: data.password,
+                name: data.name,
+                photoUrl: data.photoUrl,
+            })
 
+            toast.success("Account created successfully! 🐾");
             // Success Redirect
-            router.push("/login");
+            // router.push("/");
+            console.log({ signUpData, signUpError });
         } catch (err) {
+            toast.error("Registration failed. Email might already be taken.");
             setFormError("Registration failed. Email might already be taken.");
             setIsSubmitting(false);
         }
@@ -56,6 +69,7 @@ export default function GetStarted() {
                 <div className="text-center mb-8">
                     <h1 className="text-3xl font-extrabold uppercase tracking-tight text-slate-800 dark:text-white">
                         Get <span className="text-[#45acac]">Started</span>
+
                     </h1>
                     <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">
                         Create your profile to start your journey
@@ -111,7 +125,7 @@ export default function GetStarted() {
                         isRequired
                         name="password"
                         type={showPass ? "text" : "password"}
-                        onChange={(e) => setPasswordVal(e.target.value)}
+                        onChange={(value) => setPasswordVal(value)}
                         className="w-full"
                         validate={(value) => {
                             if (value.length < 6) return "Password must be at least 6 characters";

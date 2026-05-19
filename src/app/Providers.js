@@ -3,6 +3,7 @@
 import { RouterProvider } from "@heroui/react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { useRouter } from "next/navigation";
+import { Toaster } from "react-hot-toast";
 
 export function Providers({ children }) {
   const router = useRouter();
@@ -13,6 +14,7 @@ export function Providers({ children }) {
       {/* 2. RouterProvider hooks HeroUI components directly into Next.js navigation */}
       <RouterProvider navigate={router.push}>
         {children}
+        <Toaster/>
       </RouterProvider>
     </NextThemesProvider>
   );

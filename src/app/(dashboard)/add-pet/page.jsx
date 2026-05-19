@@ -4,9 +4,16 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button, Form, Input, Label, TextField } from "@heroui/react";
 import { Plus, Check, HeartHandshake } from "lucide-react"
+import toast from "react-hot-toast";
+import { useSession } from "@/lib/auth-client";
+import { email } from "better-auth";
 const AddPetListing = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [successMsg, setSuccessMsg] = useState("");
+
+
+    const { data: session } = useSession();
+    const user = session?.user;
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -19,6 +26,7 @@ const AddPetListing = () => {
         try {
             // Simulate submission network handshake verification latency delay
             await new Promise((resolve) => setTimeout(resolve, 1400));
+            toast.success(`"${data.petName}" listing has been added successfully!`)
             setSuccessMsg(`"${data.petName}" listing has been added successfully!`);
             e.currentTarget.reset();
         } catch (err) {
@@ -185,7 +193,7 @@ const AddPetListing = () => {
                             <Label className="text-slate-600 dark:text-slate-300 text-xs font-bold uppercase tracking-wider mb-1 block">
                                 Owner Email
                             </Label>
-                            <Input placeholder="123alarafat@gmail.com" className="w-full" />
+                            <Input value={user?.email} placeholder="123alarafat@gmail.com" className="w-full" />
                         </TextField>
                     </div>
 

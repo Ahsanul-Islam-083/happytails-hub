@@ -9,6 +9,7 @@ import Link from "next/link";
 import { Button, Avatar } from "@heroui/react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import { signOut, useSession } from "@/lib/auth-client";
 
 export const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -17,12 +18,12 @@ export const Navbar = () => {
     const pathname = usePathname();
     const { setTheme, resolvedTheme } = useTheme();
 
-    const isAuthenticated = true;
-    const user = {
-        name: "Abul",
-        email: "abul@gmail.com",
-        image: "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?q=80&w=400"
-    };
+    const { data: session } = useSession();
+    const user = session?.user;
+
+      const handleSignout = async () => {
+        await signOut();
+    }
 
     useEffect(() => {
         setMounted(true);
@@ -40,8 +41,8 @@ export const Navbar = () => {
 
     return (
         <nav className={`sticky top-0 w-full z-50 transition-all duration-300 ${scrolled
-                ? "bg-white/80 dark:bg-[#121C1E]/90 backdrop-blur-md shadow-sm border-b border-slate-200/10"
-                : "bg-orange-50/20 dark:bg-transparent"
+            ? "bg-white/80 dark:bg-[#121C1E]/90 backdrop-blur-md shadow-sm border-b border-slate-200/10"
+            : "bg-orange-50/20 dark:bg-transparent"
             }`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-16 items-center">
@@ -71,8 +72,8 @@ export const Navbar = () => {
                                     key={link.name}
                                     href={link.href}
                                     className={`relative font-medium transition-colors hover:text-[#45acac] ${isActive
-                                            ? "text-[#45acac] after:absolute after:bottom-[-6px] after:left-0 after:w-full after:h-[2px] after:bg-[#e2b86b] after:rounded-full"
-                                            : "text-slate-600 dark:text-slate-300"
+                                        ? "text-[#45acac] after:absolute after:bottom-[-6px] after:left-0 after:w-full after:h-[2px] after:bg-[#e2b86b] after:rounded-full"
+                                        : "text-slate-600 dark:text-slate-300"
                                         }`}
                                 >
                                     {link.name}
@@ -95,7 +96,7 @@ export const Navbar = () => {
                             </Button>
                         )}
 
-                        {!isAuthenticated ? (
+                        {!user ? (
                             <div className="flex gap-4">
                                 <Link href="/login">
                                     <Button variant="light" className="font-medium text-[#45acac]">Login</Button>
@@ -109,15 +110,12 @@ export const Navbar = () => {
                         ) : (
                             <div className="relative group">
                                 <button className="flex items-center gap-3 p-1 rounded-full hover:bg-[#45acac]/10 transition-colors border border-transparent hover:border-[#45acac]/20">
-                                    <Image
-                                        alt="user"
-                                        width={40}
-                                        height={40}
-                                        src={user.image}
-                                        className="w-10 h-10 rounded-full object-cover ring-2 ring-[#45acac]/20"
-                                    />
+                                    <Avatar>
+                                        <Avatar.Image referrerPolicy='no-referrer' alt={user?.name} src={user?.image} />
+                                        <Avatar.Fallback>{user?.name.charAt(0)}</Avatar.Fallback>
+                                    </Avatar>
                                     <div className="text-left hidden lg:block pr-2">
-                                        <p className="text-sm font-bold truncate max-w-25 text-slate-800 dark:text-slate-100">{user.name}</p>
+                                        <p className="text-sm font-bold truncate max-w-25 text-slate-800 dark:text-slate-100">{user?.name}</p>
                                     </div>
                                 </button>
 
@@ -125,12 +123,14 @@ export const Navbar = () => {
                                 <div className="absolute right-0 top-12 w-56 bg-white dark:bg-[#121C1E] border border-slate-100 dark:border-slate-800 rounded-2xl shadow-xl hidden group-hover:flex flex-col py-2 z-50 transition-all">
                                     <div className="px-4 py-3 border-b border-slate-50 dark:border-slate-800">
                                         <p className="font-bold text-sm text-slate-800 dark:text-slate-100">Welcome back!</p>
-                                        <p className="text-xs truncate text-slate-500 dark:text-slate-400">{user.email}</p>
+                                        <p className="text-xs truncate text-slate-500 dark:text-slate-400">{user?.email}</p>
                                     </div>
                                     <Link href="/add-pet" className="px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-[#45acac]/10 hover:text-[#45acac] flex items-center gap-3 transition-colors">
                                         <LayoutDashboard className="w-4 h-4" /> Dashboard
                                     </Link>
-                                    <button className="px-4 py-2 w-full text-sm text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30 flex items-center gap-3 transition-colors text-left mt-1 border-t border-slate-50 dark:border-slate-800">
+                                    <button
+                                        onClick={handleSignout}
+                                     className="px-4 py-2 w-full text-sm text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30 flex items-center gap-3 transition-colors text-left mt-1 border-t border-slate-50 dark:border-slate-800">
                                         <LogOut className="w-4 h-4" /> Log Out
                                     </button>
                                 </div>
@@ -177,8 +177,8 @@ export const Navbar = () => {
                                     href={link.href}
                                     onClick={() => setIsMenuOpen(false)}
                                     className={`block px-4 py-3 text-base font-medium rounded-xl transition-colors ${isActive
-                                            ? "bg-[#45acac]/10 text-[#45acac]"
-                                            : "text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800"
+                                        ? "bg-[#45acac]/10 text-[#45acac]"
+                                        : "text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800"
                                         }`}
                                 >
                                     {link.name}
@@ -187,7 +187,7 @@ export const Navbar = () => {
                         })}
 
                         <div className="pt-4 border-t border-slate-100 dark:border-slate-800 mt-4">
-                            {!isAuthenticated ? (
+                            {!user ? (
                                 <div className="grid grid-cols-2 gap-4 px-2">
                                     <Link href="/login" className="w-full">
                                         <Button variant="bordered" className="w-full rounded-xl border-[#45acac] text-[#45acac]">Login</Button>
@@ -198,18 +198,17 @@ export const Navbar = () => {
                                 </div>
                             ) : (
                                 <div className="flex flex-col items-center gap-3 pt-2">
-                                    <Image
-                                        width={50}
-                                        height={50}
-                                        alt='user'
-                                        src={user.image}
-                                        className="w-12 h-12 rounded-full object-cover ring-2 ring-[#45acac]/20"
-                                    />
+                                    <Avatar>
+                                        <Avatar.Image referrerPolicy='no-referrer' alt={user?.name} src={user?.image} />
+                                        <Avatar.Fallback>{user?.name.charAt(0)}</Avatar.Fallback>
+                                    </Avatar>
                                     <div className="text-center">
-                                        <p className="text-sm font-bold text-slate-900 dark:text-slate-100">{user.name}</p>
-                                        <p className="text-xs text-slate-500 dark:text-slate-400">{user.email}</p>
+                                        <p className="text-sm font-bold text-slate-900 dark:text-slate-100">{user?.name}</p>
+                                        <p className="text-xs text-slate-500 dark:text-slate-400">{user?.email}</p>
                                     </div>
-                                    <button className="w-full mt-2 p-2 text-sm font-medium text-red-500 hover:bg-red-50 dark:hover:bg-red-950/20 text-center border border-red-100 dark:border-red-900/30 rounded-xl transition-colors">
+                                    <button
+                                     onClick={handleSignout}
+                                     className="w-full mt-2 p-2 text-sm font-medium text-red-500 hover:bg-red-50 dark:hover:bg-red-950/20 text-center border border-red-100 dark:border-red-900/30 rounded-xl transition-colors">
                                         Log Out
                                     </button>
                                 </div>
