@@ -1,5 +1,7 @@
+import BlogPosts from "@/components/BlogPosts";
 import Hero from "@/components/Hero";
 import PetCareTips from "@/components/PetCareTips";
+import PetEmergency from "@/components/PetEmergency";
 import SuccessStories from "@/components/SuccessStories";
 import WhyAdopt from "@/components/WhyAdopt";
 
@@ -9,8 +11,10 @@ export default function Home() {
     <div className="">
       <Hero/>
       <WhyAdopt/>
-      <SuccessStories/>
       <PetCareTips/>
+      <PetEmergency/>
+      <BlogPosts/>
+      <SuccessStories/>
     </div>
   );
 }

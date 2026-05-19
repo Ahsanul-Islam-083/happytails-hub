@@ -34,6 +34,8 @@ export const Navbar = () => {
     const navLinks = [
         { name: "Home", href: "/" },
         { name: "All Pets", href: "/all-pets" },
+        { name: "My Requests", href: "/my-requests" },
+        { name: "Add Pet", href: "/add-pet" },
     ];
 
     return (

@@ -175,7 +175,7 @@ const WhyAdopt = () => {
             <div className="pt-4">
               <Link href="/adoption-process">
                 <Button 
-                  className="bg-[#45acac] hover:bg-[#368d8d] text-white font-bold px-8 py-6 rounded-full shadow-md shadow-[#45acac]/20 transition-all hover:scale-105"
+                  className="bg-[#45acac] hover:bg-[#368d8d] text-white px-8 py-6 rounded-full shadow-md shadow-[#45acac]/20 transition-all hover:scale-105"
                 >
                   Learn More Process
                 </Button>

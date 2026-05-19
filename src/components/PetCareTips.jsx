@@ -151,8 +151,8 @@ const PetCareTips = () => {
             {/* Primary Call to Action Button */}
             <div className="pt-4">
               <Link href="/pet-care-guide">
-                <Button 
-                  className="bg-[#45acac] hover:bg-[#368d8d] text-white font-bold px-8 py-6 rounded-xl shadow-md shadow-[#45acac]/20 transition-all hover:scale-105"
+                               <Button 
+                  className="bg-[#45acac] hover:bg-[#368d8d] text-white px-8 py-6 rounded-full shadow-md shadow-[#45acac]/20 transition-all hover:scale-105"
                 >
                   Know More
                 </Button>

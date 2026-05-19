@@ -141,7 +141,7 @@
 
 import Image from "next/image";
 import { Quote } from "lucide-react";
-import { FaPaw } from "react-icons/fa6";
+import { FaPaw } from "react-icons/fa";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
 import { Separator } from "@heroui/react";
@@ -195,7 +195,7 @@ const SuccessStories = () => {
           </h2>
           <div className="flex items-center gap-4 w-full max-w-xs justify-center mt-4">
             <Separator className="dark:bg-slate-700" />
-            <FaPaw className="text-[#e2b86b] text-lg animate-pulse" />
+            <FaPaw className="text-[#e2b86b] text-lg" />
             <Separator className="dark:bg-slate-700" />
           </div>
         </div>
