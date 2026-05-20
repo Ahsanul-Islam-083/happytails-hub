@@ -11,13 +11,27 @@ import {
     User2
 } from "lucide-react";
 import Link from "next/link";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+import EditModal from "@/components/EditModal";
 
 const PetDetails = async ({ params }) => {
-    // Await params safely as required by newer Next.js versions
+
+    const session = await auth.api.getSession({
+        headers: await headers()
+    });
+    const user = session?.user;
+
     const {id} = await params;
+
+    const {token} = await auth.api.getToken({
+        headers: await headers()
+    });
     
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/allPets/${id}`, {
-        cache: 'no-store' // Ensures fresh data fetches on dynamic page view
+        headers:{
+            authorization: `Bearer ${token}`
+        }
     });
     const pet = await res.json();
 
@@ -138,11 +152,14 @@ const PetDetails = async ({ params }) => {
                         <div className="pt-6 border-t border-slate-100 dark:border-slate-800/80">
                             <Button
                                 size="lg"
-                                className="w-full bg-[#e2b86b] text-white rounded-2xl shadow-xl hover:bg-[#e2b86bd6] active:scale-[0.99] h-12 tracking-wide uppercase transition-all hover:scale-105"
+                                className="w-full text-xs md:text-lg bg-[#e2b86b] text-white rounded-2xl shadow-xl hover:bg-[#e2b86bd6] active:scale-[0.99] h-12 tracking-wide uppercase transition-all hover:scale-105"
                             >
                                 <Heart size={16} className="mr-2 fill-current" />
                                 Initiate Adoption Process
                             </Button>
+                        </div>
+                        <div>
+                            <EditModal pet={pet} user={user} />
                         </div>
                     </div>
 

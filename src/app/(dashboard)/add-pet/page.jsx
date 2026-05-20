@@ -5,30 +5,50 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button, Form, Input, Label, TextField } from "@heroui/react";
 import { Plus, Check, HeartHandshake } from "lucide-react"
 import toast from "react-hot-toast";
-import { useSession } from "@/lib/auth-client";
-import { email } from "better-auth";
+import { authClient, useSession } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
+
 const AddPetListing = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [successMsg, setSuccessMsg] = useState("");
 
+    const router = useRouter();
 
     const { data: session } = useSession();
     const user = session?.user;
 
     const onSubmit = async (e) => {
         e.preventDefault();
+        const form = e.currentTarget;
         setIsSubmitting(true);
         setSuccessMsg("");
 
         const formData = new FormData(e.currentTarget);
-        const data = Object.fromEntries(formData.entries());
+        const petData = Object.fromEntries(formData.entries());
+
+        const { data: tokenData } = await authClient.token();
+        const token = tokenData?.token;
+
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/addPet`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify(petData)
+        })
+        // console.log(petData);
+
+
 
         try {
             // Simulate submission network handshake verification latency delay
             await new Promise((resolve) => setTimeout(resolve, 1400));
-            toast.success(`"${data.petName}" listing has been added successfully!`)
-            setSuccessMsg(`"${data.petName}" listing has been added successfully!`);
-            e.currentTarget.reset();
+            toast.success(`"${petData.petName}" has been added successfully!`)
+            setSuccessMsg(`"${petData.petName}" has been added successfully!`);
+            form.reset();
+            router.refresh();
+
         } catch (err) {
             console.error(err);
         } finally {
