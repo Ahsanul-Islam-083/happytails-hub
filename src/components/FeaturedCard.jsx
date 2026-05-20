@@ -44,11 +44,11 @@ const FeaturedCard = ({ pet, idx }) => {
         <div className="absolute inset-0 bg-slate-950/40 backdrop-blur-[6px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden md:flex flex-col items-center justify-center gap-3 p-4 z-20">
           <div className="flex flex-col gap-2.5 w-full max-w-50">
             {/* MATCHED: Your specific custom View Details button properties */}
-           <Link href={`/all-pets/qq`}>
+           <Link href={`/all-pets/${pet._id}`} className="w-full">
             <Button
               size="sm"
               variant="flat"
-              className="w-full bg-slate-800/80 hover:bg-slate-700 text-slate-200 rounded-xl border border-slate-700/60 transition-all shadow-md transform translate-y-3 group-hover:translate-y-0 duration-300 delay-[50ms] font-medium"
+              className="w-full bg-slate-800/80 hover:bg-slate-700 text-slate-200 rounded-xl border border-slate-700/60 shadow-md transform translate-y-3 group-hover:translate-y-0 duration-300 delay-[50ms] font-medium transition-all hover:scale-105"
             >
               <Eye size={14} className="mr-1.5" />
               View Details
@@ -57,7 +57,7 @@ const FeaturedCard = ({ pet, idx }) => {
             {/* MATCHED: Your beautiful gold Adopt Now button properties */}
             <Button
               size="sm"
-              className="w-full bg-[#e2b86b] text-white rounded-xl shadow-lg transition-all hover:brightness-110 transform translate-y-3 group-hover:translate-y-0 duration-300 delay-100"
+              className="w-full bg-[#e2b86b] text-white rounded-xl shadow-lg  hover:bg-[#e2b86bd6] transform translate-y-3 group-hover:translate-y-0 duration-300 delay-100 transition-all hover:scale-105"
             >
               <Heart size={14} className="mr-1.5 fill-current" />
               Adopt Now
@@ -93,7 +93,7 @@ const FeaturedCard = ({ pet, idx }) => {
 
         {/* MOBILE & TABLET LAYOUT BUTTONS: Using your exact styling updates for consistent smaller screen display */}
         <div className="mt-5 flex gap-3 w-full md:hidden">
-            <Link href={`/all-pets/qq`} className="flex-1">
+            <Link href={`/all-pets/${pet._id}`} className="flex-1">
               <Button
                 size="sm"
                 variant="flat"
@@ -113,7 +113,7 @@ const FeaturedCard = ({ pet, idx }) => {
           </Button>
           <Button
             size="sm"
-            className="flex-1 bg-[#e2b86b] text-white rounded-xl shadow-lg h-10"
+            className="flex-1 bg-[#e2b86b] hover:bg-[#e2b86bd6] text-white rounded-xl shadow-lg h-10"
           >
             <Heart size={14} className="mr-1.5 fill-current" />
             Adopt

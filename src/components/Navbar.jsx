@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import { Menu, X, User, LogOut, LayoutDashboard, Sun, Moon } from "lucide-react";
 import Link from "next/link";
@@ -12,6 +12,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { signOut, useSession } from "@/lib/auth-client";
 
 export const Navbar = () => {
+    const router = useRouter();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [mounted, setMounted] = useState(false);
@@ -20,9 +21,11 @@ export const Navbar = () => {
 
     const { data: session } = useSession();
     const user = session?.user;
-
+//  console.log(user);
+ 
       const handleSignout = async () => {
         await signOut();
+        router.push('/')
     }
 
     useEffect(() => {

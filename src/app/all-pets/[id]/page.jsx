@@ -1,7 +1,3 @@
-"use client";
-
-import React from "react";
-import { useSearchParams, useRouter } from "next/navigation";
 import Image from "next/image";
 import { Button } from "@heroui/react";
 import {
@@ -16,23 +12,14 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
-const PetDetails = () => {
-
-    // Fallback data configuration if page is loaded directly without parameters
-    const pet = {
-        petName: "Lovely Companion",
-        species: "Pet",
-        breed: "Mixed Breed",
-        age: "N/A",
-        gender: "Not Specified",
-        imageUrl: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=500",
-        healthStatus: "Healthy",
-        vaccinationStatus: "Fully Vaccinated",
-        location: "Available Nearby",
-        adoptionFee: 10,
-        description: "This friendly animal is searching for a loving family and cozy warm household setup. Please reach out to arrange an introductory meetup session.",
-    };
-
+const PetDetails = async ({ params }) => {
+    // Await params safely as required by newer Next.js versions
+    const {id} = await params;
+    
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/allPets/${id}`, {
+        cache: 'no-store' // Ensures fresh data fetches on dynamic page view
+    });
+    const pet = await res.json();
 
     return (
         <main className="min-h-screen bg-[#f1f5f9] dark:bg-[#0b0f19] py-12 px-4 md:px-8 lg:px-12 transition-colors duration-300 text-left">
@@ -47,7 +34,6 @@ const PetDetails = () => {
                         Back to All Pets
                     </button>
                 </Link>
-                
 
                 {/* Master Profile Container Layout */}
                 <div className="bg-white dark:bg-[#121C1E] border border-slate-200/60 dark:border-slate-800/60 rounded-3xl overflow-hidden shadow-2xl grid grid-cols-1 lg:grid-cols-12 gap-0">
@@ -56,12 +42,12 @@ const PetDetails = () => {
                     <div className="relative lg:col-span-5 min-h-87.5 sm:min-h-112.5 lg:min-h-full bg-slate-900">
                         <Image
                             src={pet.imageUrl}
-                            alt={pet.petName}
+                            alt={pet.petName || "Pet Image"}
                             fill
                             priority
                             className="object-cover"
                         />
-                        {/* Ambient vignette background mask gradient overlay */}
+                        {/* FIXED: Swapped bg-linear-to-t to stable bg-gradient-to-t to prevent hydration/script injection crashes */}
                         <div className="absolute inset-0 bg-linear-to-t from-slate-950/50 via-transparent to-transparent md:hidden" />
                     </div>
 
@@ -72,7 +58,7 @@ const PetDetails = () => {
                             <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
                                 <div>
                                     <span className="text-[11px] font-extrabold text-[#e2b86b] bg-[#e2b86b]/10 px-3 py-1 rounded-md border border-[#e2b86b]/20 tracking-wider uppercase">
-                                        🐾 {pet.species} Component Profile
+                                        🐾 {pet.species} Profile
                                     </span>
                                     <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-slate-900 dark:text-white mt-3">
                                         {pet.petName}
@@ -122,7 +108,7 @@ const PetDetails = () => {
                                     <ShieldCheck size={18} className="text-emerald-400" />
                                     <div>
                                         <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Medical Status</p>
-                                        <p className="text-sm text-slate-800 dark:text-slate-200 font-extrabold truncate">{pet.healthStatus}</p>
+                                        <p className="text-sm text-slate-800 dark:text-slate-200 font-extrabold truncate">{pet.healthStatus || "Healthy"}</p>
                                     </div>
                                 </div>
                             </div>
@@ -140,10 +126,10 @@ const PetDetails = () => {
                             {/* ADDITIONAL METADATA CHIPS FLAG ROW */}
                             <div className="flex flex-wrap gap-2.5 mb-8">
                                 <span className="text-xs font-semibold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 px-3 py-1.5 rounded-lg">
-                                    🛡️ Health: <strong className="text-slate-800 dark:text-slate-200 ml-0.5">{pet.healthStatus}</strong>
+                                    🛡️ Health: <strong className="text-slate-800 dark:text-slate-200 ml-0.5">{pet.healthStatus || "Checked"}</strong>
                                 </span>
                                 <span className="text-xs font-semibold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 px-3 py-1.5 rounded-lg">
-                                    💉 Clinical: <strong className="text-slate-800 dark:text-slate-200 ml-0.5">{pet.vaccinationStatus}</strong>
+                                    💉 Clinical: <strong className="text-slate-800 dark:text-slate-200 ml-0.5">{pet.vaccinationStatus || "Up to Date"}</strong>
                                 </span>
                             </div>
                         </div>
@@ -152,7 +138,7 @@ const PetDetails = () => {
                         <div className="pt-6 border-t border-slate-100 dark:border-slate-800/80">
                             <Button
                                 size="lg"
-                                className="w-full bg-[#e2b86b] text-white font-extrabold rounded-2xl shadow-xl transition-all hover:brightness-110 active:scale-[0.99] h-12 text-sm tracking-wide uppercase"
+                                className="w-full bg-[#e2b86b] text-white rounded-2xl shadow-xl hover:bg-[#e2b86bd6] active:scale-[0.99] h-12 tracking-wide uppercase transition-all hover:scale-105"
                             >
                                 <Heart size={16} className="mr-2 fill-current" />
                                 Initiate Adoption Process

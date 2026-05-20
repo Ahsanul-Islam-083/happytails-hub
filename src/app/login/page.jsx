@@ -8,6 +8,7 @@ import { LogIn, Eye, EyeOff } from "lucide-react";
 import { Button, FieldError, Form, Input, Label, TextField } from "@heroui/react";
 import { FcGoogle } from "react-icons/fc";
 import { signIn } from "@/lib/auth-client";
+import toast from "react-hot-toast";
 
 export default function Login() {
     const router = useRouter();
@@ -34,7 +35,7 @@ export default function Login() {
 
         //   console.log({loginData, loginError}, "login response");
           
-
+            toast.success("Logged in successfully! 🐾");
             // Navigate to Home Dashboard layout
             router.push("/");
         } catch (err) {

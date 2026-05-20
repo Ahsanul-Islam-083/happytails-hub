@@ -27,6 +27,7 @@ export default function GetStarted() {
 
         const formData = new FormData(e.currentTarget);
         const data = Object.fromEntries(formData.entries());
+        
 
         // Final security checkpoint check
         if (data.password !== data.confirmPassword) {
@@ -43,13 +44,13 @@ export default function GetStarted() {
                 email: data.email,
                 password: data.password,
                 name: data.name,
-                photoUrl: data.photoUrl,
+                image: data.image,
             })
 
             toast.success("Account created successfully! 🐾");
             // Success Redirect
-            // router.push("/");
-            console.log({ signUpData, signUpError });
+            router.push("/");
+            // console.log({ signUpData, signUpError });
         } catch (err) {
             toast.error("Registration failed. Email might already be taken.");
             setFormError("Registration failed. Email might already be taken.");
@@ -114,7 +115,7 @@ export default function GetStarted() {
                     </TextField>
 
                     {/* Photo URL Field */}
-                    <TextField isRequired name="photoUrl" type="url">
+                    <TextField isRequired name="image" type="url">
                         <Label className="text-slate-700 dark:text-slate-300 font-semibold text-sm">Photo URL</Label>
                         <Input placeholder="https://example.com/your-avatar.jpg" className="mt-1" />
                         <FieldError className="text-xs text-danger mt-1" />
