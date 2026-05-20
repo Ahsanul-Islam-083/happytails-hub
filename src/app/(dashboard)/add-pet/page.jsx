@@ -25,6 +25,7 @@ const AddPetListing = () => {
 
         const formData = new FormData(e.currentTarget);
         const petData = Object.fromEntries(formData.entries());
+        petData.userId = user?.id;
 
         const { data: tokenData } = await authClient.token();
         const token = tokenData?.token;

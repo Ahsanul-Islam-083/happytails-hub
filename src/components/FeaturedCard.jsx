@@ -43,7 +43,8 @@ const FeaturedCard = ({ pet, idx }) => {
         {/* DESKTOP HOVER OVERLAY: Hidden on mobile and tablet viewport layers (hidden md:flex) */}
         <div className="absolute inset-0 bg-slate-950/40 backdrop-blur-[6px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden md:flex flex-col items-center justify-center gap-3 p-4 z-20">
           <div className="flex flex-col gap-2.5 w-full max-w-50">
-            {/* MATCHED: Your specific custom View Details button properties */}
+         
+         
            <Link href={`/all-pets/${pet._id}`} className="w-full">
             <Button
               size="sm"
@@ -54,7 +55,8 @@ const FeaturedCard = ({ pet, idx }) => {
               View Details
             </Button>
            </Link>
-            {/* MATCHED: Your beautiful gold Adopt Now button properties */}
+
+           <Link href={`/all-pets/${pet._id}`} className="w-full">
             <Button
               size="sm"
               className="w-full bg-[#e2b86b] text-white rounded-xl shadow-lg  hover:bg-[#e2b86bd6] transform translate-y-3 group-hover:translate-y-0 duration-300 delay-100 transition-all hover:scale-105"
@@ -62,6 +64,7 @@ const FeaturedCard = ({ pet, idx }) => {
               <Heart size={14} className="mr-1.5 fill-current" />
               Adopt Now
             </Button>
+           </Link>
           </div>
         </div>
       </div>

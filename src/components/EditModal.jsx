@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import { useState } from "react";
@@ -7,44 +8,52 @@ import { Pencil } from "lucide-react";
 import { Button, Input, Label, Modal, Surface, TextField } from "@heroui/react";
 import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
-// Assuming sonner or react-hot-toast for feedback messages
 
 const EditModal = ({ pet, user }) => {
     const router = useRouter();
     const [isSubmitting, setIsSubmitting] = useState(false);
-    // const [successMsg, setSuccessMsg] = useState("");
+    const [isOpen, setIsOpen] = useState(false); // Controlled modal state to 
 
     const onSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
-        // setSuccessMsg("");
 
         const formData = new FormData(e.currentTarget);
-        const petData = Object.fromEntries(formData.entries());
-
-        const { data: tokenData } = await authClient.token();
-        const token = tokenData?.token;
-
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/allPets/${pet._id}`,{
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify(petData)
-        });
-
+        const petData = Object.fromEntries(formData.entries())
+        
+        
         try {
-            // Simulate submission network handshake verification latency delay
-            await new Promise((resolve) => setTimeout(resolve, 1400));
+            const { data: tokenData } = await authClient.token();
+            const token = tokenData?.token;
+    
+            const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/allPets/${pet._id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(petData)
+            });
 
+            if (!res.ok) {
+                toast.error("Failed to update pet details. Please try again.");
+                return;
+            }
+            // console.log(user,"user");
+            
             // console.log(petData);
-
+            
 
             toast.success(`"${petData.petName}" has been updated successfully!`);
-            // setSuccessMsg(`"${petData.petName}" has been updated successfully!`);
+            
+          
+            await new Promise((resolve) => setTimeout(resolve, 1000));
 
+           
+            setIsOpen(false);
+        
             router.push(`/all-pets/${pet._id}`);
+            router.refresh(); 
         } catch (err) {
             console.error(err);
             toast.error("Failed to update pet configuration parameters.");
@@ -54,19 +63,19 @@ const EditModal = ({ pet, user }) => {
     };
 
     return (
-        <Modal>
-            {/* Trigger Button to launch the Edit Modal Interface Viewport */}
+        <Modal isOpen={isOpen} onOpenChange={setIsOpen}>
+            {/* Trigger Button */}
             <Button
+                onClick={() => setIsOpen(true)}
                 size="lg"
-                className="text-xs md:text-lg bg-[#e2b86b]/30 text-white rounded-2xl shadow-xl hover:bg-[#e2b86bd6] active:scale-[0.99] h-12 tracking-wide uppercase transition-all hover:scale-105"
+                className="w-full text-xs rounded-2xl shadow-xl active:scale-[0.99] h-10 tracking-wide uppercase transition-all hover:scale-105 bg-[#e2b86b]/20 hover:bg-[#e2b86b]/30 text-[#d29b35] dark:text-[#f3cd85]"
             >
                 <Pencil size={15} />
-                Edit Details
+                Edit
             </Button>
 
             <Modal.Backdrop>
                 <Modal.Container placement="auto">
-                    {/* Main frame optimized seamlessly to reflect your application's thematic parameters */}
                     <Modal.Dialog className="sm:max-w-2xl bg-white dark:bg-[#121C1E] border border-slate-200 dark:border-slate-800/80 rounded-3xl overflow-hidden shadow-2xl">
                         <Modal.CloseTrigger />
 
@@ -88,7 +97,7 @@ const EditModal = ({ pet, user }) => {
                             <Surface variant="default" className="bg-transparent shadow-none p-0 border-0">
                                 <form className="flex flex-col gap-6 w-full" onSubmit={onSubmit}>
 
-                                    {/* Row 1: Pet Name & Species Option Matrix */}
+                                    {/* Row 1: Pet Name & Species */}
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full">
                                         <TextField isRequired name="petName" defaultValue={pet?.petName}>
                                             <Label className="text-slate-600 dark:text-slate-300 text-xs font-bold uppercase tracking-wider mb-1 block">
@@ -105,7 +114,7 @@ const EditModal = ({ pet, user }) => {
                                                 required
                                                 name="species"
                                                 defaultValue={pet?.species || ""}
-                                                className="w-full h-10 px-3 rounded-xl bg-slate-50 dark:bg-[#1f2937] border border-slate-200 dark:border-slate-700/80 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-[#45acac] dark:focus:border-[#45acac] transition-all text-sm cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700/50"
+                                                className="w-full h-10 px-3 rounded-xl bg-slate-50 dark:bg-[#1f2937] border border-slate-200 dark:border-slate-700/80 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-[#45acac] transition-all text-sm cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700/50"
                                             >
                                                 <option value="" disabled>Select species</option>
                                                 <option value="Dog">Dog</option>
@@ -117,7 +126,7 @@ const EditModal = ({ pet, user }) => {
                                         </div>
                                     </div>
 
-                                    {/* Row 2: Breed & Age Matrix Fields */}
+                                    {/* Row 2: Breed & Age */}
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full">
                                         <TextField isRequired name="breed" defaultValue={pet?.breed}>
                                             <Label className="text-slate-600 dark:text-slate-300 text-xs font-bold uppercase tracking-wider mb-1 block">
@@ -134,7 +143,7 @@ const EditModal = ({ pet, user }) => {
                                         </TextField>
                                     </div>
 
-                                    {/* Row 3: Gender Selector Setup and Vaccination Matrix */}
+                                    {/* Row 3: Gender & Vaccination */}
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full">
                                         <div className="flex flex-col w-full">
                                             <label className="text-slate-600 dark:text-slate-300 text-xs font-bold uppercase tracking-wider mb-2.5">
@@ -170,7 +179,7 @@ const EditModal = ({ pet, user }) => {
                                         </div>
                                     </div>
 
-                                    {/* Row 4: Image URL Field */}
+                                    {/* Row 4: Image URL */}
                                     <TextField isRequired name="imageUrl" type="url" defaultValue={pet?.imageUrl} className="w-full">
                                         <Label className="text-slate-600 dark:text-slate-300 text-xs font-bold uppercase tracking-wider mb-1 block">
                                             Pet Image URL
@@ -178,7 +187,7 @@ const EditModal = ({ pet, user }) => {
                                         <Input placeholder="https://i.ibb.co/..." className="w-full" />
                                     </TextField>
 
-                                    {/* Row 5: Health Status Selection and Location Metadata fields */}
+                                    {/* Row 5: Health & Location */}
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full">
                                         <div className="flex flex-col w-full">
                                             <label className="text-slate-600 dark:text-slate-300 text-xs font-bold uppercase tracking-wider mb-2.5">
@@ -205,7 +214,7 @@ const EditModal = ({ pet, user }) => {
                                         </TextField>
                                     </div>
 
-                                    {/* Grid Row 6: Adoption Fee & Contact Owner Matrix Fields */}
+                                    {/* Row 6: Adoption Fee & Owner Email (Fixed to defaultValue) */}
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full">
                                         <TextField isRequired name="adoptionFee" type="number" defaultValue={pet?.adoptionFee}>
                                             <Label className="text-slate-600 dark:text-slate-300 text-xs font-bold uppercase tracking-wider mb-1 block">
@@ -214,7 +223,7 @@ const EditModal = ({ pet, user }) => {
                                             <Input placeholder="0" className="w-full" />
                                         </TextField>
 
-                                        <TextField isRequired name="ownerEmail" type="email" value={pet?.ownerEmail || user?.email}>
+                                        <TextField isRequired name="ownerEmail" type="email" defaultValue={pet?.ownerEmail || user?.email}>
                                             <Label className="text-slate-600 dark:text-slate-300 text-xs font-bold uppercase tracking-wider mb-1 block">
                                                 Owner Email
                                             </Label>
@@ -222,7 +231,7 @@ const EditModal = ({ pet, user }) => {
                                         </TextField>
                                     </div>
 
-                                    {/* Row 7: Description Box */}
+                                    {/* Row 7: Description */}
                                     <div className="flex flex-col w-full">
                                         <label className="text-slate-600 dark:text-slate-300 text-xs font-bold uppercase tracking-wider mb-2">
                                             Description
@@ -237,10 +246,10 @@ const EditModal = ({ pet, user }) => {
                                         />
                                     </div>
 
-                                    {/* Action Layout Panel Footer */}
+                                    {/* Footer buttons */}
                                     <div className="flex items-center justify-end gap-3 border-t border-slate-100 dark:border-slate-800 pt-6 mt-4 w-full">
                                         <Button
-                                            slot="close"
+                                            onClick={() => setIsOpen(false)}
                                             variant="light"
                                             className="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 font-semibold rounded-xl px-5"
                                         >
