@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Form, TextField, Label, Input, Button } from "@heroui/react";
 import { Heart, CalendarDays, MessageSquare, User, Mail, Check } from "lucide-react";
+import toast from "react-hot-toast";
 
 const AdoptionSection = ({ pet, user, token }) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -15,35 +16,44 @@ const AdoptionSection = ({ pet, user, token }) => {
         setSuccessMsg("");
 
         const formData = new FormData(e.currentTarget);
-        const applicationPayload = {
+        const applicationData = {
             petId: pet?._id,
             petName: pet?.petName,
             ownerEmail: pet?.ownerEmail,
-            applicantName: user?.name || user?.displayName,
-            applicantEmail: user?.email,
+            userName: user?.name,
+            userEmail: user?.email,                    
             pickupDate: formData.get("pickupDate"),
             message: formData.get("message"),
+            requestDate: new Date().toISOString().split("T")[0]
         };
 
-        // try {
-        //     const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/adoptionRequests`, {
-        //         method: "POST",
-        //         headers: {
-        //             "Content-Type": "application/json",
-        //             authorization: `Bearer ${token}`
-        //         },
-        //         body: JSON.stringify(applicationPayload)
-        //     });
-
-        //     if (response.ok) {
-        //         setSuccessMsg(`Your application to adopt ${pet?.petName || "this pet"} was sent successfully!`);
-        //         e.target.reset();
-        //     }
-        // } catch (error) {
-        //     console.error("Adoption Submission Error:", error);
-        // } finally {
-        //     setIsSubmitting(false);
-        // }
+        try {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/adopt`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify(applicationData)
+            });
+            const data = await response.json();
+            if (data.insertedId) {
+                
+                toast.success('Adoption request submitted!');
+                setSuccessMsg(`Your application to adopt ${pet?.petName || "this pet"} was sent successfully!`);
+                // e.target.reset();
+                
+            } else {
+                toast.error("Failed to insert request");
+            }
+            // console.log(applicationData);
+            
+        } catch (error) {
+            // console.error("Adoption Submission Error:", error);
+            toast.error('Failed to submit request. Please try again.');
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (
@@ -68,8 +78,8 @@ const AdoptionSection = ({ pet, user, token }) => {
 
                 {/* Section Header */}
                 <div className="mb-4 pl-2 border-b border-slate-100 dark:border-slate-800/60 pb-3.5">
-                    <h2 className="flex items-center gap-2 text-xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-                        <Heart className="text-[#45acac] fill-current" size={14} />  Bring <span className="text-[#45acac]">{pet?.petName || "Home"}</span> Forever
+                    <h2 className="flex items-center gap-2 md:text-xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+                        <Heart className="text-[#45acac] fill-current" size={14} />  Give <span className="text-[#45acac]">{pet?.petName}</span>A Forever Home
                     </h2>
                     <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">
                         Submit your adoption interest details below. The owner will review your application and reach out.
@@ -84,10 +94,10 @@ const AdoptionSection = ({ pet, user, token }) => {
                             Pet Name
                         </Label>
                         <div className="relative flex items-center">
-                            <span className="absolute left-3.5 text-xs font-bold bg-[#45acac]/10 px-2 py-0.5 rounded-md select-none">🐾</span>
+
                             <Input
                                 value={pet?.petName || ""}
-                                className="w-full pl-12 bg-slate-50/80 dark:bg-[#161f20] font-semibold text-[#45acac]"
+                                className="w-full bg-slate-50/80 dark:bg-[#161f20] font-semibold text-[#45acac]"
                             />
                         </div>
                     </TextField>
@@ -101,7 +111,7 @@ const AdoptionSection = ({ pet, user, token }) => {
                             <div className="relative flex items-center">
                                 <User size={14} className="absolute left-3.5 text-slate-400 dark:text-slate-500" />
                                 <Input
-                                    value={user?.name || user?.displayName || ""}
+                                    value={user?.name || ""}
                                     placeholder="Applicant Name"
                                     className="w-full pl-10 bg-slate-50/80 dark:bg-[#161f20]"
                                 />

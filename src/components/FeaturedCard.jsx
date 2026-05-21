@@ -36,7 +36,7 @@ const FeaturedCard = ({ pet, idx }) => {
         </div>
         <div className="absolute top-3 right-3 z-10">
           <span className="text-[10px] font-semibold text-emerald-600 dark:text-emerald-200 bg-emerald-50 dark:bg-emerald-500/10 backdrop-blur-md px-2.5 py-0.5 rounded-md border border-emerald-200 dark:border-emerald-500/20 tracking-wider uppercase shadow-sm">
-            Available
+            {pet?.status || "Available"}
           </span>
         </div>
 

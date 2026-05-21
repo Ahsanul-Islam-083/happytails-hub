@@ -29,7 +29,7 @@ const MyListings = async () => {
     return (
         <div>
             <div className=''>
-                <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mt-4">
+                <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mt-4 border-b border-slate-200 dark:border-slate-800/80 pb-3.5">
                     My <span className="text-[#45acac]">Listings</span>
                 </h1>
                 <div className='flex flex-col md:flex-row justify-between gap-2 md:gap-8 my-8'>

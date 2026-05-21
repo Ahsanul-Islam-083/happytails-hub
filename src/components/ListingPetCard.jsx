@@ -30,8 +30,8 @@ const ListingPetCard = ({ pet, idx, user ,onRequestView, }) => {
 
                 {/* Dynamic Species Badge overlay */}
                 <div className="absolute top-2.5 left-2.5 z-10">
-                    <span className="text-[10px] text-[#e2b86b] bg-white/90 dark:bg-[#e2b86b]/10 backdrop-blur-md px-2 py-0.5 rounded-md border border-slate-200/60 dark:border-[#e2b86b]/20 dark:text-white shadow-sm">
-                        🐾 {pet?.species}
+                    <span className="text-[10px] text-emerald-600 dark:text-emerald-200 bg-emerald-50 dark:bg-emerald-500/10 backdrop-blur-md px-2.5 py-0.5 rounded-md border border-emerald-200 dark:border-emerald-500/20 tracking-wider uppercase shadow-sm">
+                     {pet?.status || "Available"}
                     </span>
                 </div>
             </div>
@@ -45,7 +45,7 @@ const ListingPetCard = ({ pet, idx, user ,onRequestView, }) => {
                             {pet?.petName}
                         </h3>
                         <p className=" text-slate-500 dark:text-slate-400 font-medium mt-0.5 truncate">
-                            {pet?.breed} • {pet?.age} {pet?.age === 1 ? "year" : "years"} old
+                          🐾 {pet?.species} • {pet?.breed} • {pet?.age} {pet?.age === 1 ? "year" : "years"} old
                         </p>
                     </div>
 
@@ -76,7 +76,7 @@ const ListingPetCard = ({ pet, idx, user ,onRequestView, }) => {
                         {/* Requests Button */}
                         <Button
                             size="sm"
-                            onClick={() => onRequestView?.(pet)}
+                            
                             className="flex-1 sm:flex-initial bg-[#45acac] text-white hover:bg-[#3ba0a0] rounded-xl  h-9 shadow-md shadow-[#45acac]/10"
                         >
                             <Inbox size={14} className="mr-1" />
@@ -86,27 +86,10 @@ const ListingPetCard = ({ pet, idx, user ,onRequestView, }) => {
 
                     {/* Secondary Mutation Controls: Edit & Delete */}
                     <div className="flex items-center gap-2 w-full sm:w-auto sm:border-l border-slate-200 dark:border-slate-800 sm:pl-2.5">
-                        {/* Edit Button */}
-                        {/* <Button
-                            size="sm"
-                            onClick={() => onEdit?.(pet)}
-                            className="flex-1 sm:flex-initial bg-[#e2b86b]/20 hover:bg-[#e2b86b]/30 text-[#e2b86b] dark:text-[#f3cd85] rounded-xl  h-9"
-                        >
-                            <Pencil size={13} className="mr-1" />
-                            Edit
-                        </Button> */}
+
                         <EditModal pet={pet} user={user}/>
 
-                        {/* Delete Button */}
-                        {/* <Button
-                            size="sm"
-                            onClick={() => onDelete?.(pet?._id)}
-                            className="bg-rose-50 hover:bg-rose-100 dark:bg-rose-500/10 dark:hover:bg-rose-500/20 text-rose-600 dark:text-rose-400 rounded-xl  h-9 px-3 min-w-9 sm:min-w-0"
-                            title="Delete Listing"
-                        >
-                            <Trash2 size={14} className="sm:mr-1" />
-                            <span className="inline sm:hidden lg:inline">Delete</span>
-                        </Button> */}
+
                         <DeleteAlert/>
                     </div>
 

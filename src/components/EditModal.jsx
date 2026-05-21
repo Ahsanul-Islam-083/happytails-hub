@@ -39,10 +39,7 @@ const EditModal = ({ pet, user }) => {
                 toast.error("Failed to update pet details. Please try again.");
                 return;
             }
-            // console.log(user,"user");
-            
-            // console.log(petData);
-            
+
 
             toast.success(`"${petData.petName}" has been updated successfully!`);
             
