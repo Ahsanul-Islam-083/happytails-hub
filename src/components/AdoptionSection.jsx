@@ -5,8 +5,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Form, TextField, Label, Input, Button } from "@heroui/react";
 import { Heart, CalendarDays, MessageSquare, User, Mail, Check } from "lucide-react";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const AdoptionSection = ({ pet, user, token }) => {
+    const router = useRouter();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [successMsg, setSuccessMsg] = useState("");
 
@@ -42,6 +44,7 @@ const AdoptionSection = ({ pet, user, token }) => {
                 toast.success('Adoption request submitted!');
                 setSuccessMsg(`Your application to adopt ${pet?.petName || "this pet"} was sent successfully!`);
                 // e.target.reset();
+                router.push(`/all-pets/${pet?._id}`)
                 
             } else {
                 toast.error("Failed to insert request");
