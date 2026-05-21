@@ -8,8 +8,8 @@ import { Calendar, Clock, Eye, Trash2, ShieldQuestion, CheckCircle2, XCircle } f
 import { Button } from "@heroui/react";
 import CancelAdoption from "./CancelAdoption";
 
-const AdoptionRequestCard = ({ request, token, id}) => {
-    
+const AdoptionRequestCard = ({ request, token, id }) => {
+
     // 1. Setup default state configurations for "Pending"
     let statusText = "Pending";
     let statusBg = "bg-[#e2b86b]/10 dark:bg-[#e2b86b]/20 border-[#e2b86b]/30";
@@ -46,10 +46,10 @@ const AdoptionRequestCard = ({ request, token, id}) => {
 
     return (
         <div className="bg-white dark:bg-[#121C1E] border border-slate-200/60 dark:border-slate-800/60 rounded-2xl p-5 shadow-md hover:shadow-xl transition-all duration-300 relative overflow-hidden group text-left flex flex-col justify-between min-h-60">
-            
+
             {/* Corner Abstract Background Flare Layout */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-[#45acac]/5 rounded-full blur-2xl pointer-events-none group-hover:scale-125 transition-transform duration-500" />
-            
+
             <div>
                 {/* Top Profile Summary Header Panel */}
                 <div className="flex items-center justify-between gap-3 mb-4">
@@ -104,10 +104,11 @@ const AdoptionRequestCard = ({ request, token, id}) => {
                 )}
             </div>
 
+
             {/* Bottom Action Footer Panel Grid Wrapper */}
             <div className="grid grid-cols-2 gap-2.5 pt-3 border-t border-slate-100 dark:border-slate-800/50 w-full">
-                
-                {/* View Details Action Navigation Route Button */}
+
+
                 <Link href={`/all-pets/${request?.petId}`} className="w-full">
                     <Button
                         size="sm"
@@ -118,8 +119,18 @@ const AdoptionRequestCard = ({ request, token, id}) => {
                     </Button>
                 </Link>
 
-                {/* Modal Hook Trigger Cancel Button Element */}
-            <CancelAdoption id={id} token={token} />
+                {/* Conditional Cancel Logic */}
+                {normalizedStatus === "approved" ? (
+                    <Button
+                        disabled
+                        size="sm"
+                        className="w-full bg-slate-100 dark:bg-slate-900/40 text-slate-400 dark:text-[#45acac] border border-slate-200/20 dark:border-slate-700/20 font-bold rounded-xl text-xs h-9 cursor-not-allowed"
+                    >
+                        Already Approved
+                    </Button>
+                ) : (
+                    <CancelAdoption id={id} token={token} />
+                )}
             </div>
         </div>
     );
