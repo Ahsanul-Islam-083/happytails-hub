@@ -7,7 +7,7 @@ import Link from "next/link";
 import { LogIn, Eye, EyeOff } from "lucide-react";
 import { Button, FieldError, Form, Input, Label, TextField } from "@heroui/react";
 import { FcGoogle } from "react-icons/fc";
-import { signIn } from "@/lib/auth-client";
+import { authClient, signIn } from "@/lib/auth-client";
 import toast from "react-hot-toast";
 
 export default function Login() {
@@ -25,7 +25,7 @@ export default function Login() {
         const data = Object.fromEntries(formData.entries());
 
         try {
-            // Simulate backend validation check call
+          
             await new Promise((resolve) => setTimeout(resolve, 1200));
 
             const { data: loginData, error: loginError } = await signIn.email({
@@ -33,10 +33,10 @@ export default function Login() {
                 password: data.password,
             });
 
-        //   console.log({loginData, loginError}, "login response");
+       
           
             toast.success("Logged in successfully! 🐾");
-            // Navigate to Home Dashboard layout
+            
             router.push("/");
         } catch (err) {
             setFormError("Invalid email address or password combination.");
@@ -44,9 +44,11 @@ export default function Login() {
         }
     };
 
-    const handleGoogleLogin = () => {
-        // Inject Google Auth Trigger here
-        console.log("Redirecting to OAuth loop...");
+    const handleGoogleLogin = async() => {
+      await authClient.signIn.social({
+        provider:"google"
+      })
+     
     };
 
     return (
@@ -57,7 +59,7 @@ export default function Login() {
                 transition={{ duration: 0.5, ease: "easeOut" }}
                 className="w-full max-w-md bg-white dark:bg-[#162224] p-8 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-800/50 text-left"
             >
-                {/* Header Block */}
+               
                 <div className="text-center mb-8">
                     <h1 className="text-3xl font-extrabold uppercase tracking-tight text-slate-800 dark:text-white">
                         Welcome <span className="text-[#45acac]">Back</span>
@@ -67,7 +69,7 @@ export default function Login() {
                     </p>
                 </div>
 
-                {/* Global Error Handle Alert Banner */}
+                
                 {formError && (
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
@@ -80,7 +82,7 @@ export default function Login() {
 
                 <Form className="flex flex-col gap-5 w-full" onSubmit={onSubmit}>
 
-                    {/* Email Address */}
+                  
                     <TextField
                         isRequired
                         name="email"
@@ -97,7 +99,7 @@ export default function Login() {
                         <FieldError className="text-xs text-danger mt-1" />
                     </TextField>
 
-                    {/* Password */}
+                   
                     <TextField isRequired name="password" type={showPass ? "text" : "password"} className="w-full">
                         <div className="flex justify-between items-center w-full">
                             <Label className="text-slate-700 dark:text-slate-300 font-semibold text-sm">Password</Label>
@@ -121,7 +123,7 @@ export default function Login() {
                         <FieldError className="text-xs text-danger mt-1" />
                     </TextField>
 
-                    {/* Standard Form Submission Button */}
+                   
                     <Button
                         type="submit"
                         isLoading={isSubmitting}
@@ -131,26 +133,26 @@ export default function Login() {
                         Login
                     </Button>
 
-                    {/* Separator Line Badge Layout */}
+                   
                     <div className="relative flex py-2 items-center w-full">
                         <div className="grow border-t border-slate-200 dark:border-slate-800"></div>
                         <span className="shrink mx-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Or continue with</span>
                         <div className="grow border-t border-slate-200 dark:border-slate-800"></div>
                     </div>
 
-                    {/* Google SSO Login Authentication Trigger Action */}
+                   
                     <Button
                         type="button"
                         variant="bordered"
                         onClick={handleGoogleLogin}
-                        className="w-full border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 font-semibold py-6 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors"
-                    >
-                        {/* Embedded Inline SVG Asset for Google Logo */}
+                        className="w-full border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 font-semibold py-6 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors"
+                    > 
+                        
                         <FcGoogle />
                         Sign in with Google
                     </Button>
 
-                    {/* Redirect link to Register */}
+                
                     <p className="text-center text-sm text-slate-500 dark:text-slate-400 mt-4">
                         New to the platform?{" "}
                         <Link href="/register" className="text-[#e2b86b] hover:underline font-semibold transition-colors">

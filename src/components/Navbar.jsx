@@ -66,7 +66,7 @@ export const Navbar = () => {
                         </Link>
                     </div>
 
-                    {/* DESKTOP NAVIGATION */}
+                  
                     <div className="hidden md:flex gap-8 items-center">
                         {navLinks.map((link) => {
                             const isActive = pathname === link.href;
@@ -85,9 +85,9 @@ export const Navbar = () => {
                         })}
                     </div>
 
-                    {/* DESKTOP AUTH / USER MENU & THEME TOGGLE */}
+                   
                     <div className="hidden md:flex items-center gap-4">
-                        {/* Theme Button */}
+                       
                         {mounted && (
                             <Button
                                 isIconOnly
@@ -118,11 +118,10 @@ export const Navbar = () => {
                                         <Avatar.Fallback>{user?.name.charAt(0)}</Avatar.Fallback>
                                     </Avatar>
                                     <div className="text-left hidden lg:block pr-2">
-                                        <p className="text-sm font-bold truncate max-w-25 text-slate-800 dark:text-slate-100">{user?.name}</p>
+                                        <p className="text-sm font-bold truncate max-w-25 text-slate-800 dark:text-slate-100">{user?.name.split(' ')[0]}</p>
                                     </div>
                                 </button>
 
-                                {/* Dropdown Menu */}
                                 <div className="absolute right-0 top-12 w-56 bg-white dark:bg-[#121C1E] border border-slate-100 dark:border-slate-800 rounded-2xl shadow-xl hidden group-hover:flex flex-col py-2 z-50 transition-all">
                                     <div className="px-4 py-3 border-b border-slate-50 dark:border-slate-800">
                                         <p className="font-bold text-sm text-slate-800 dark:text-slate-100">Welcome back!</p>
@@ -141,7 +140,7 @@ export const Navbar = () => {
                         )}
                     </div>
 
-                    {/* MOBILE MENU TOGGLE */}
+                    
                     <div className="md:hidden flex items-center gap-2">
                         {mounted && (
                             <Button
@@ -163,7 +162,7 @@ export const Navbar = () => {
                 </div>
             </div>
 
-            {/* MOBILE MENU OVERLAY */}
+            
             <AnimatePresence>
                 {isMenuOpen && (
                     <motion.div
