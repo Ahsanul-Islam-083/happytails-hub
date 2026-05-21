@@ -43,16 +43,16 @@ const AdoptionSection = ({ pet, user, token }) => {
                 
                 toast.success('Adoption request submitted!');
                 setSuccessMsg(`Your application to adopt ${pet?.petName || "this pet"} was sent successfully!`);
-                // e.target.reset();
+                
                 router.push(`/all-pets/${pet?._id}`)
                 
             } else {
                 toast.error("Failed to insert request");
             }
-            // console.log(applicationData);
+           
             
         } catch (error) {
-            // console.error("Adoption Submission Error:", error);
+           
             toast.error('Failed to submit request. Please try again.');
         } finally {
             setIsSubmitting(false);
@@ -61,7 +61,7 @@ const AdoptionSection = ({ pet, user, token }) => {
 
     return (
         <div className="w-full">
-            {/* Toast Alert Dialog Banner Hook */}
+          
             <AnimatePresence>
                 {successMsg && (
                     <motion.div
@@ -76,10 +76,10 @@ const AdoptionSection = ({ pet, user, token }) => {
                 )}
             </AnimatePresence>
 
-            {/* Form Master Data Frame Card */}
+          
             <div className="bg-white dark:bg-[#121C1E] border border-slate-200/60 dark:border-slate-800/60 rounded-3xl p-6 shadow-xl relative overflow-hidden transition-colors duration-300">
 
-                {/* Section Header */}
+               
                 <div className="mb-4 pl-2 border-b border-slate-100 dark:border-slate-800/60 pb-3.5">
                     <h2 className="flex items-center gap-2 md:text-xl font-extrabold tracking-tight text-slate-900 dark:text-white">
                         <Heart className="text-[#45acac] fill-current" size={14} />  Give <span className="text-[#45acac]">{pet?.petName}</span>A Forever Home
@@ -91,7 +91,7 @@ const AdoptionSection = ({ pet, user, token }) => {
 
                 <Form className="flex flex-col gap-5 w-full" onSubmit={handleSubmit}>
 
-                    {/* Row 1: Context Pet Name Target (Disabled/Read-only Field) */}
+                    
                     <TextField isReadOnly name="petName" className="w-full">
                         <Label className="text-slate-600 dark:text-slate-300 text-[11px] font-bold uppercase tracking-wider mb-1 block">
                             Pet Name
@@ -105,7 +105,7 @@ const AdoptionSection = ({ pet, user, token }) => {
                         </div>
                     </TextField>
 
-                    {/* Row 2: User Name & User Email Matrix */}
+                   
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
                         <TextField isReadOnly name="userName">
                             <Label className="text-slate-600 dark:text-slate-300 text-[11px] font-bold uppercase tracking-wider mb-1 block">
@@ -136,7 +136,6 @@ const AdoptionSection = ({ pet, user, token }) => {
                         </TextField>
                     </div>
 
-                    {/* Row 3: Pickup Target Date Selector Field */}
                     <TextField isRequired name="pickupDate" type="date" className="w-full">
                         <Label className="text-slate-600 dark:text-slate-300 text-[11px] font-bold uppercase tracking-wider mb-1 block">
                             Proposed Pickup Date
@@ -150,7 +149,7 @@ const AdoptionSection = ({ pet, user, token }) => {
                         </div>
                     </TextField>
 
-                    {/* Row 4: Textarea Message Box Application Block */}
+                   
                     <div className="flex flex-col w-full">
                         <label className="text-slate-600 dark:text-slate-300 text-[11px] font-bold uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
                             <MessageSquare size={13} className="text-slate-400" />
@@ -165,7 +164,7 @@ const AdoptionSection = ({ pet, user, token }) => {
                         />
                     </div>
 
-                    {/* Action Submit Control Layout Panel */}
+                    
                     <div className="pt-2 w-full">
                         <Button
                             type="submit"

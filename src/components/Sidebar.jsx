@@ -24,7 +24,7 @@ const Sidebar = () => {
                             key={href}
                             href={href}
                             className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold transition-all ${active
-                                    ? "bg-gradient-to-r from-pink-500 to-rose-500 text-white shadow-lg shadow-pink-500/30"
+                                    ? "bg-linear-to-r from-pink-500 to-rose-500 text-white shadow-lg shadow-pink-500/30"
                                     : "text-slate-400 hover:text-white hover:bg-white/5"
                                 }`}
                         >
@@ -35,7 +35,7 @@ const Sidebar = () => {
                 })}
             </nav>
 
-            {/* Logout at bottom */}
+            
             <button className="flex items-center gap-3 px-3 py-2.5 text-sm text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-all">
                 <LogOut className="w-4 h-4" /> Logout
             </button>

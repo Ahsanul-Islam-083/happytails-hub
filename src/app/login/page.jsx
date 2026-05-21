@@ -108,7 +108,7 @@ export default function Login() {
                             </p>
                         </div>
 
-                        {/* relative wrapper tightly contains the absolute eye icon */}
+                       
                         <div className="relative w-full mt-1 flex items-center">
                             <Input placeholder="Enter your password" className="w-full pr-12" />
                             <button

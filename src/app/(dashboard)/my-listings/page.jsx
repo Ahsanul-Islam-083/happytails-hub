@@ -38,21 +38,21 @@ const MyListings = async () => {
                     My <span className="text-[#45acac]">Listings</span>
                 </h1>
                 <div className='flex flex-col md:flex-row justify-between gap-2 md:gap-8 my-8'>
-                    {/* Total Listings Card */}
+                   
                     <div className='border border-[#e2b86b] text-center rounded-2xl py-4 md:py-10 w-full'>
                         <p className='font-bold text-xl md:text-3xl text-[#45acac]'>
                             {totalListings}
                         </p>
                         <p>Total Listings</p>
                     </div>
-                    {/* Dynamic Available Card */}
+                   
                     <div className='border border-[#e2b86b] text-center rounded-2xl py-4 md:py-10 w-full'>
                         <p className='font-bold text-xl md:text-3xl text-[#e2b86b]'>
                             {availableListings}
                         </p>
                         <p>Available</p>
                     </div>
-                    {/* Dynamic Adopted Card */}
+                  
                     <div className='border border-[#e2b86b] text-center rounded-2xl py-4 md:py-10 w-full'>
                         <p className='font-bold text-xl md:text-3xl text-[#239438]'>
                             {adoptedListings}

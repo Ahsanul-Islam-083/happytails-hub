@@ -9,7 +9,7 @@ const Footer = () => {
     <footer className="bg-[#121C1E] dark:bg-[#0b1213] mt-1 text-slate-400 px-6 md:px-16 py-16 border-t border-slate-800/40">
       <div className="max-w-7xl mx-auto">
         
-        {/* Brand Header Section */}
+       
         <div className="mb-12">
           <Link href="/" className="flex items-center gap-3 group">
             <div className="p-1.5 bg-[#45acac]/10 rounded-full group-hover:rotate-12 transition-transform">
@@ -31,10 +31,10 @@ const Footer = () => {
           </p>
         </div>
 
-        {/* Grid Section */}
+      
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           
-          {/* Newsletter */}
+          
           <div>
             <h3 className="text-[#e2b86b] font-bold mb-4 tracking-wider text-sm uppercase">Newsletter</h3>
             <p className="mb-4 text-sm text-slate-400">
@@ -52,7 +52,7 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Quick Links */}
+        
           <div>
             <h3 className="text-[#e2b86b] font-bold mb-4 tracking-wider text-sm uppercase">Quick Links</h3>
             <ul className="space-y-3 text-sm">
@@ -63,7 +63,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Support */}
+        
           <div>
             <h3 className="text-[#e2b86b] font-bold mb-4 tracking-wider text-sm uppercase">Support</h3>
             <ul className="space-y-3 text-sm">
@@ -74,7 +74,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Contact */}
+        
           <div>
             <h3 className="text-[#e2b86b] font-bold mb-4 tracking-wider text-sm uppercase">Contact Us</h3>
             <ul className="space-y-3 text-sm">
@@ -94,13 +94,13 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Bottom Section */}
+     
         <div className="border-t border-slate-800/80 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-slate-500">
             © {new Date().getFullYear()} Happy Tails. All rights reserved.
           </p>
 
-          {/* Social Links */}
+        
           <div className="flex gap-6 text-slate-400 items-center">
             <Link href="/" className="hover:text-[#45acac] hover:scale-110 transition-all">
               <FaXTwitter className="w-5 h-5" />

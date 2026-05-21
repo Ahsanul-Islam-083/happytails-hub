@@ -43,7 +43,7 @@ const AddPetListing = () => {
 
 
         try {
-            // Simulate submission network handshake verification latency delay
+            
             await new Promise((resolve) => setTimeout(resolve, 1400));
             toast.success(`"${petData.petName}" has been added successfully!`)
             setSuccessMsg(`"${petData.petName}" has been added successfully!`);
@@ -64,7 +64,7 @@ const AddPetListing = () => {
             transition={{ duration: 0.4, ease: "easeOut" }}
             className="max-w-4xl mx-auto text-left"
         >
-            {/* Title Meta Header Layout Card */}
+           
             <div className="mb-4 border-b border-slate-200 dark:border-slate-800/80 pb-3.5">
 
                 <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mt-4">
@@ -75,7 +75,7 @@ const AddPetListing = () => {
                 </p>
             </div>
 
-            {/* Toast Alert Dialog Banner Hook */}
+          
             <AnimatePresence>
                 {successMsg && (
                     <motion.div
@@ -89,10 +89,10 @@ const AddPetListing = () => {
                 )}
             </AnimatePresence>
 
-            {/* Form Master Data Frame Card */}
+           
             <div className="bg-white dark:bg-[#0b1213] border border-slate-200 dark:border-slate-800/80 rounded-2xl p-6 md:p-8 shadow-xl dark:shadow-2xl relative overflow-hidden transition-colors duration-300">
 
-                {/* Section Header */}
+          
                 <div className="flex items-center gap-2 mb-6 text-slate-800 dark:text-slate-200 font-bold text-base border-b border-slate-200 dark:border-slate-800/80 pb-3.5">
                     <HeartHandshake className="text-[#45acac]" size={18} />
                     Pet Information

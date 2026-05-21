@@ -34,7 +34,7 @@ const PetEmergency = () => {
     <section className="py-24 bg-[#f8f3e9] dark:bg-[#162224] transition-colors relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Added Section Title Block */}
+       
         <div className="flex flex-col items-center text-center mb-16">
           <span className="text-xs font-bold tracking-widest uppercase text-slate-500 dark:text-slate-400 block mb-2">
             — Get Involved —
@@ -49,7 +49,7 @@ const PetEmergency = () => {
           </div>
         </div>
 
-        {/* Responsive Grid Structure */}
+       
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {emergencyCards.map((card, idx) => (
             <motion.div
@@ -60,7 +60,7 @@ const PetEmergency = () => {
               transition={{ duration: 0.4, delay: idx * 0.1 }}
               className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-md group cursor-pointer"
             >
-              {/* Core Base Image Layer */}
+              
               <Image
                 src={card.image}
                 alt={card.title}
@@ -68,16 +68,16 @@ const PetEmergency = () => {
                 className="object-cover brightness-95 transition-transform duration-500 group-hover:scale-105"
               />
 
-              {/* Default Subtle Gradient overlay to ensure text readability */}
+            
               <div className="absolute inset-0 bg-black/30 dark:bg-black/40 z-10 transition-colors" />
 
-              {/* OVERLAY FEATURE: Darkish Shade on Hover */}
+              
               <div className="absolute inset-0 bg-black/40 dark:bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20" />
 
-              {/* OVERLAY FEATURE: Animated Inset Fine-line Border Frame */}
+             
               <div className="absolute inset-4 border border-white/0 rounded-xl pointer-events-none transition-all duration-300 group-hover:border-white/70 scale-95 group-hover:scale-100 z-30" />
 
-              {/* Centered Context Text Metadata */}
+            
               <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 text-white z-40 select-none">
                 <h3 className="text-xl sm:text-2xl font-bold tracking-wide mb-3 drop-shadow-sm font-sans">
                   {card.title}

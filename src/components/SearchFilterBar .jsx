@@ -8,7 +8,7 @@ const SearchFilterBar = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
 
-    // Auto-fill state from URL if they already searched
+    
     const [search, setSearch] = useState(searchParams.get("search") || "");
     const [category, setCategory] = useState(searchParams.get("category") || "");
 
@@ -34,7 +34,7 @@ const SearchFilterBar = () => {
         if (searchTerm) params.set("search", searchTerm);
         if (categoryTerm) params.set("category", categoryTerm);
         
-        // Pushes to URL which forces the Server Component to re-fetch!
+        
         router.push(`/all-pets?${params.toString()}`);
     };
 
@@ -42,7 +42,7 @@ const SearchFilterBar = () => {
         <div className="w-full max-w-4xl mx-auto mb-12 bg-white dark:bg-[#121c1e] p-4 rounded-3xl shadow-xl border border-slate-200 dark:border-slate-800/80 transition-colors duration-300">
             <form onSubmit={handleSearch} className="flex flex-col md:flex-row gap-4">
                 
-                {/* Search Input */}
+                
                 <div className="relative flex-1">
                     <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                         <Search className="h-5 w-5 text-slate-400" />
@@ -56,7 +56,7 @@ const SearchFilterBar = () => {
                     />
                 </div>
 
-                {/* Category Filter Dropdown */}
+                
                 <div className="relative md:w-64">
                     <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                         <Filter className="h-5 w-5 text-slate-400" />
@@ -74,7 +74,7 @@ const SearchFilterBar = () => {
                     </select>
                 </div>
 
-                {/* Buttons */}
+               
                 <div className="flex gap-2">
                     <button
                         type="submit"

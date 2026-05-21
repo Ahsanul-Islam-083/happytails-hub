@@ -39,7 +39,7 @@ const CancelAdoption = ({ token, id }) => {
 
     return (
         <AlertDialog>
-            {/* <Button variant="danger-soft">Delete</Button> */}
+           
             <Button
                 size="sm"
                 className="w-full bg-rose-500/10 hover:bg-rose-500 text-rose-600 hover:text-white dark:bg-rose-500/20 dark:text-rose-400 dark:hover:text-white font-bold rounded-xl text-xs gap-1.5 h-9 border border-rose-500/20 dark:border-rose-500/10 transition-all duration-200"

@@ -61,7 +61,7 @@ const EditModal = ({ pet, user }) => {
 
     return (
         <Modal isOpen={isOpen} onOpenChange={setIsOpen}>
-            {/* Trigger Button */}
+         
             <Button
                 onClick={() => setIsOpen(true)}
                 size="lg"

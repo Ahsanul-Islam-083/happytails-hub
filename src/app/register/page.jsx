@@ -7,7 +7,6 @@ import Link from "next/link";
 import { Check, Eye, EyeOff } from "lucide-react";
 import { Button, Description, FieldError, Form, Input, Label, TextField } from "@heroui/react";
 import toast from "react-hot-toast";
-// import { error } from "better-auth/api";
 import { signUp } from "@/lib/auth-client";
 
 export default function GetStarted() {
@@ -15,7 +14,7 @@ export default function GetStarted() {
     const [showPass, setShowPass] = useState(false);
     const [showConfirmPass, setShowConfirmPass] = useState(false);
 
-    // Real-time tracking for password match verification
+   
     const [passwordVal, setPasswordVal] = useState("");
     const [formError, setFormError] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -29,7 +28,7 @@ export default function GetStarted() {
         const data = Object.fromEntries(formData.entries());
         
 
-        // Final security checkpoint check
+        
         if (data.password !== data.confirmPassword) {
             setFormError("Passwords do not match. Please verify.");
             setIsSubmitting(false);
@@ -37,9 +36,9 @@ export default function GetStarted() {
         }
 
         try {
-            // Simulate backend registration call 
+            
             await new Promise((resolve) => setTimeout(resolve, 1500));
-            // console.log(data,"data");
+        
             const { data: signUpData, error: signUpError } = await signUp.email({
                 email: data.email,
                 password: data.password,
@@ -48,9 +47,9 @@ export default function GetStarted() {
             })
 
             toast.success("Account created successfully! 🐾");
-            // Success Redirect
+            
             router.push("/");
-            // console.log({ signUpData, signUpError });
+            
         } catch (err) {
             toast.error("Registration failed. Email might already be taken.");
             setFormError("Registration failed. Email might already be taken.");
@@ -66,7 +65,7 @@ export default function GetStarted() {
                 transition={{ duration: 0.5, ease: "easeOut" }}
                 className="w-full max-w-md bg-white dark:bg-[#162224] p-8 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-800/50 text-left"
             >
-                {/* Title branding */}
+              
                 <div className="text-center mb-8">
                     <h1 className="text-3xl font-extrabold uppercase tracking-tight text-slate-800 dark:text-white">
                         Get <span className="text-[#45acac]">Started</span>
@@ -77,7 +76,7 @@ export default function GetStarted() {
                     </p>
                 </div>
 
-                {/* Form-level Error Message Box */}
+                
                 {formError && (
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
@@ -90,14 +89,14 @@ export default function GetStarted() {
 
                 <Form className="flex flex-col gap-5 w-full" onSubmit={onSubmit}>
 
-                    {/* Name Field */}
+                
                     <TextField isRequired name="name" type="text">
                         <Label className="text-slate-700 dark:text-slate-300 font-semibold text-sm">Full Name</Label>
                         <Input placeholder="Enter your full name" className="mt-1" />
                         <FieldError className="text-xs text-danger mt-1" />
                     </TextField>
 
-                    {/* Email Field */}
+                  
                     <TextField
                         isRequired
                         name="email"
@@ -114,14 +113,14 @@ export default function GetStarted() {
                         <FieldError className="text-xs text-danger mt-1" />
                     </TextField>
 
-                    {/* Photo URL Field */}
+                 
                     <TextField isRequired name="image" type="url">
                         <Label className="text-slate-700 dark:text-slate-300 font-semibold text-sm">Photo URL</Label>
                         <Input placeholder="https://example.com/your-avatar.jpg" className="mt-1" />
                         <FieldError className="text-xs text-danger mt-1" />
                     </TextField>
 
-                    {/* Password Field */}
+                   
                     <TextField
                         isRequired
                         name="password"
@@ -137,7 +136,7 @@ export default function GetStarted() {
                     >
                         <Label className="text-slate-700 dark:text-slate-300 font-semibold text-sm">Password</Label>
 
-                        {/* relative wrapper tightly contains the absolute eye icon */}
+                       
                         <div className="relative w-full mt-1 flex items-center">
                             <Input placeholder="Create a strong password" className="w-full pr-12" />
                             <button
@@ -156,7 +155,7 @@ export default function GetStarted() {
                         <FieldError className="text-xs text-danger mt-1" />
                     </TextField>
 
-                    {/* Confirm Password Field */}
+                    
                     <TextField
                         isRequired
                         name="confirmPassword"
@@ -171,7 +170,7 @@ export default function GetStarted() {
                     >
                         <Label className="text-slate-700 dark:text-slate-300 font-semibold text-sm">Confirm Password</Label>
 
-                        {/* relative wrapper tightly contains the absolute eye icon */}
+                       
                         <div className="relative w-full mt-1 flex items-center">
                             <Input placeholder="Re-enter your password" className="w-full pr-12" />
                             <button
@@ -186,7 +185,7 @@ export default function GetStarted() {
                         <FieldError className="text-xs text-danger mt-1" />
                     </TextField>
 
-                    {/* Action Buttons */}
+
                     <Button
                         type="submit"
                         isLoading={isSubmitting}
@@ -196,7 +195,7 @@ export default function GetStarted() {
                         Register Account
                     </Button>
 
-                    {/* Redirect to Login */}
+                
                     <p className="text-center text-sm text-slate-500 dark:text-slate-400 mt-4">
                         Already have an account?{" "}
                         <Link href="/login" className="text-[#e2b86b] hover:underline font-semibold transition-colors">

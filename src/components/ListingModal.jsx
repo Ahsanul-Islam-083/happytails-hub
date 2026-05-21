@@ -11,7 +11,7 @@ const ListingModal = ({ pet, token }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [requests, setRequests] = useState([]);
 
-    // 1. Fetch applications for this specific pet record
+   
     const handleViewRequests = async () => {
         setIsOpen(true);
         try {
@@ -31,7 +31,7 @@ const ListingModal = ({ pet, token }) => {
         }
     };
 
-    // Simple date converter utility tool
+  
     const formatDate = (dateStr) => {
         if (!dateStr) return "Not Configured";
         return new Date(dateStr).toLocaleDateString("en-US", {
@@ -42,7 +42,7 @@ const ListingModal = ({ pet, token }) => {
     };
 
 
-    // 2. patch functionalities for Approve/Reject Button
+    
     const handleStatus = async (requestId, petId, status) => {
         const updatedRequestStatus = {
             status,
@@ -63,12 +63,12 @@ const ListingModal = ({ pet, token }) => {
 
             if (upDatedData) {
                 toast.success(`Request successfully ${status}!`)
-                setRequests(prev => prev.map(r=>{
+                setRequests(prev => prev.map(r => {
                     if (r._id === requestId) {
-                        return {...r, status:status}
-                    } else if(status === 'approved'){
-                        return {...r, status: 'rejected'};
-                    }else{
+                        return { ...r, status: status }
+                    } else if (status === 'approved') {
+                        return { ...r, status: 'rejected' };
+                    } else {
                         return r;
                     }
                 }))
@@ -76,14 +76,14 @@ const ListingModal = ({ pet, token }) => {
 
         } catch (error) {
             toast.error('Something went wrong');
-            console.log(error,"abcd");
-            
+            console.log(error, "abcd");
+
         }
     }
 
     return (
         <>
-            {/* Trigger Button */}
+            
             <Button
                 size="sm"
                 onClick={handleViewRequests}
@@ -93,14 +93,14 @@ const ListingModal = ({ pet, token }) => {
                 Requests
             </Button>
 
-            {/* Modal Setup */}
+            
             <Modal isOpen={isOpen} onOpenChange={setIsOpen} scrollBehavior="inside">
                 <Modal.Backdrop>
                     <Modal.Container placement="auto">
                         <Modal.Dialog className="sm:max-w-2xl bg-white dark:bg-[#121C1E] border border-slate-200 dark:border-slate-800/80 rounded-3xl overflow-hidden shadow-2xl text-left">
                             <Modal.CloseTrigger />
 
-                            {/* Header Section */}
+                            
                             <Modal.Header className="flex gap-3 items-center border-b border-slate-200 dark:border-slate-800/80 pb-4 p-6">
                                 <Modal.Icon className="bg-[#45acac]/10 text-[#45acac] rounded-xl p-2 shrink-0">
                                     <Users className="size-5" />
@@ -113,20 +113,20 @@ const ListingModal = ({ pet, token }) => {
                                 </div>
                             </Modal.Header>
 
-                            {/* Modal Body View Panel */}
+                            
                             <Modal.Body className="p-6">
                                 {requests.length === 0 ? (
-                                    /* Empty state fallback layout */
+                                   
                                     <div className="flex flex-col items-center justify-center py-12 text-center border border-dashed border-slate-200 dark:border-slate-800 rounded-2xl bg-slate-50/50 dark:bg-slate-900/10">
                                         <AlertCircle className="text-slate-500 dark:text-slate-700 mb-2.5" size={28} />
                                         <h5 className="text-sm font-bold text-slate-700 dark:text-slate-300">No requests filed</h5>
                                         <p className="text-xs text-slate-500 mt-1 max-w-xs">No users have initiated requests for this pet profile yet.</p>
                                     </div>
                                 ) : (
-                                    /* Main Applications List Grid */
+                                   
                                     <div className="space-y-4 max-h-100 overflow-y-auto pr-1">
                                         {requests.map((req) => {
-                                            // Handle status configuration variables with normal if/else statements
+                                            
                                             let currentStatusText = "Pending";
                                             let badgeStyle = "bg-[#e2b86b]/10 text-[#d4a343] border-[#e2b86b]/20";
 
@@ -145,7 +145,7 @@ const ListingModal = ({ pet, token }) => {
 
                                                         className=" flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-2"
                                                     >
-                                                        {/* User Details Stack */}
+                                                       
                                                         <div className="space-y-2 min-w-0 flex-1">
                                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-1 text-slate-500 dark:text-slate-400">
                                                                 <div className="flex items-center gap-2 flex-wrap">
@@ -163,7 +163,7 @@ const ListingModal = ({ pet, token }) => {
                                                                 </div>
                                                             </div>
 
-                                                            {/* Info Row Matrix */}
+                                                            
                                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-1 text-slate-500 dark:text-slate-400">
                                                                 <div className="flex items-center gap-1.5 truncate">
                                                                     <Mail size={13} className="text-slate-400 shrink-0" />
@@ -178,10 +178,10 @@ const ListingModal = ({ pet, token }) => {
 
 
                                                     </div>
-                                                    {/* Pure View-Only Actions (Shows only when status is pending) */}
+                                                   
                                                     {req.status?.toLowerCase() === "pending" && (
                                                         <div className="flex flex-col md:flex-row justify-center items-center gap-2 md:shrink-0 self-center md:self-end w-full md:w-auto">
-                                                            {/* Reject UI Button */}
+                                                           
                                                             <Button
                                                                 onClick={() => handleStatus(req._id, req.petId, 'rejected')}
                                                                 size="sm"
@@ -190,7 +190,7 @@ const ListingModal = ({ pet, token }) => {
                                                                 <X size={15} /> Reject
                                                             </Button>
 
-                                                            {/* Approve UI Button */}
+                                                            
                                                             <Button
                                                                 onClick={() => handleStatus(req._id, req.petId, 'approved')}
                                                                 size="sm"
@@ -208,7 +208,7 @@ const ListingModal = ({ pet, token }) => {
                                 )}
                             </Modal.Body>
 
-                            {/* Footer Container Tray */}
+                            
                             <div className="flex items-center justify-end border-t border-slate-200 dark:border-slate-800 pt-4 p-6 w-full">
                                 <Button
                                     onClick={() => setIsOpen(false)}

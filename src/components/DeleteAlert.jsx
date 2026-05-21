@@ -38,7 +38,7 @@ const DeleteAlert = ({ pet }) => {
 
     return (
         <AlertDialog>
-            {/* <Button variant="danger-soft">Delete</Button> */}
+           
             <Button
                 size="lg"
                 className=" w-full text-xs rounded-2xl shadow-xl active:scale-[0.99] h-10 tracking-wide uppercase transition-all hover:scale-105 bg-rose-50 hover:bg-rose-100 dark:bg-rose-500/10 dark:hover:bg-rose-500/20 text-rose-600 dark:text-rose-400"

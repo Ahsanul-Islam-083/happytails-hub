@@ -11,7 +11,7 @@ import { Button, Separator } from "@heroui/react";
 import { FiSidebar } from "react-icons/fi";
 import { signOut } from "@/lib/auth-client";
 
-// Kept raw configuration map datasets safely isolated outside the component mount tree context
+
 const menuItems = [
   { name: "My Requests", href: "/my-requests", icon: ClipboardList },
   { name: "Add Pet", href: "/add-pet", icon: PlusCircle },
@@ -31,9 +31,7 @@ const DashboardLayout = ({ children }) => {
   return (
     <div className="flex min-h-screen bg-[#f8f3e9] dark:bg-[#162224] text-slate-800 dark:text-slate-100 antialiased selection:bg-[#45acac]/30 transition-colors duration-300">
       
-      {/* =========================================================================
-          DESKTOP SIDEBAR
-          ========================================================================= */}
+    
       <aside className="hidden md:flex w-64 bg-[#f8f3e9] dark:bg-[#162224] border-r border-slate-200 dark:border-slate-800/60 flex-col justify-between p-4 sticky top-0 h-screen z-20 transition-colors duration-300">
         <div className="w-full">
           <div className="px-3 py-4 mb-4">
@@ -43,8 +41,7 @@ const DashboardLayout = ({ children }) => {
             </span>
           </div>
           <Separator className="dark:bg-slate-700 mb-4" />
-          
-          {/* FIXED: Render loop inlined natively directly onto the desktop viewport channel context tree */}
+  
           <nav className="flex flex-col gap-1.5 w-full">
             {menuItems.map((item) => {
               const isActive = pathname === item.href;
@@ -88,9 +85,7 @@ const DashboardLayout = ({ children }) => {
         </div>
       </aside>
 
-      {/* =========================================================================
-          MOBILE COLLAPSIBLE SLIDE PANELS DRAWER LAYER SYSTEM
-          ========================================================================= */}
+
       <AnimatePresence>
         {isOpen && (
           <>
@@ -127,7 +122,7 @@ const DashboardLayout = ({ children }) => {
                 </div>
                 <Separator className="dark:bg-slate-700 mb-4" />
                 
-                {/* FIXED: Render loop inlined here cleanly for mobile viewports, automatically closing drawer on tap links */}
+
                 <nav className="flex flex-col gap-1.5 w-full">
                   {menuItems.map((item) => {
                     const isActive = pathname === item.href;
@@ -179,9 +174,6 @@ const DashboardLayout = ({ children }) => {
         )}
       </AnimatePresence>
 
-      {/* =========================================================================
-          DYNAMIC CONTENT ROUTE PORTAL FRAME VIEWPORT INTERFACE
-          ========================================================================= */}
       <div className="flex-1 flex flex-col min-w-0 bg-[#f8f3e9] dark:bg-[#121C1E] transition-colors duration-300">
         
         <header className="h-16 bg-white dark:bg-[#121C1E] border-b border-slate-200/60 dark:border-slate-800/60 flex items-center px-6 md:hidden gap-2 w-full transition-colors duration-300 sticky top-0 z-30">
@@ -193,12 +185,12 @@ const DashboardLayout = ({ children }) => {
           >
             <FiSidebar />
           </Button>
-          <h1 className="font-extrabold text-lg bg-gradient-to-r from-[#45acac] to-[#e2b86b] bg-clip-text text-transparent">
+          <h1 className="font-extrabold text-lg bg-linear-to-r from-[#45acac] to-[#e2b86b] bg-clip-text text-transparent">
             Pet Dashboard
           </h1>
         </header>
 
-        <main className="flex-1 p-6 md:p-10 overflow-y-auto max-w-[1600px] w-full mx-auto">
+        <main className="flex-1 p-6 md:p-10 overflow-y-auto max-w-400 w-full mx-auto">
           {children}
         </main>
       </div>

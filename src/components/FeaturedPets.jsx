@@ -16,7 +16,7 @@ const FeaturedPets = async() => {
     <section className="bg-white dark:bg-[#0b1213] py-16 px-4 md:px-8 lg:px-12 w-full text-left transition-colors duration-300">
       <div className="max-w-7xl mx-auto">
         
-        {/* Component Title Section */}
+      
         <div className="text-center mb-12">
 
           
@@ -30,7 +30,7 @@ const FeaturedPets = async() => {
           </p>
         </div>
 
-        {/* Responsive Grid containing your custom isolated JavaScript FeaturedCards */}
+        
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {featuredList.map((pet, idx) => (
             <FeaturedCard key={idx} pet={pet} idx={idx} />

@@ -20,7 +20,7 @@ const Hero = () => {
                 className="object-cover z-0"
             />
 
-            {/* Exact original dark shade backdrop mask overlay */}
+            
             <div className="absolute inset-0 bg-black/50 z-10" />
 
             <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-16 md:py-24">
