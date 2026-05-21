@@ -25,7 +25,7 @@ export default function Login() {
         const data = Object.fromEntries(formData.entries());
 
         try {
-          
+
             await new Promise((resolve) => setTimeout(resolve, 1200));
 
             const { data: loginData, error: loginError } = await signIn.email({
@@ -33,22 +33,29 @@ export default function Login() {
                 password: data.password,
             });
 
-       
-          
+
+            if (loginError) {
+                toast.error(loginError.message || "Invalid email or password.");
+                setFormError("Invalid email address or password combination.");
+                setIsSubmitting(false);
+                return;
+            }
+
             toast.success("Logged in successfully! 🐾");
-            
             router.push("/");
+            ;
+
         } catch (err) {
             setFormError("Invalid email address or password combination.");
             setIsSubmitting(false);
         }
     };
 
-    const handleGoogleLogin = async() => {
-      await authClient.signIn.social({
-        provider:"google"
-      })
-     
+    const handleGoogleLogin = async () => {
+        await authClient.signIn.social({
+            provider: "google"
+        })
+
     };
 
     return (
@@ -59,7 +66,7 @@ export default function Login() {
                 transition={{ duration: 0.5, ease: "easeOut" }}
                 className="w-full max-w-md bg-white dark:bg-[#162224] p-8 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-800/50 text-left"
             >
-               
+
                 <div className="text-center mb-8">
                     <h1 className="text-3xl font-extrabold uppercase tracking-tight text-slate-800 dark:text-white">
                         Welcome <span className="text-[#45acac]">Back</span>
@@ -69,7 +76,7 @@ export default function Login() {
                     </p>
                 </div>
 
-                
+
                 {formError && (
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
@@ -82,7 +89,7 @@ export default function Login() {
 
                 <Form className="flex flex-col gap-5 w-full" onSubmit={onSubmit}>
 
-                  
+
                     <TextField
                         isRequired
                         name="email"
@@ -99,7 +106,7 @@ export default function Login() {
                         <FieldError className="text-xs text-danger mt-1" />
                     </TextField>
 
-                   
+
                     <TextField isRequired name="password" type={showPass ? "text" : "password"} className="w-full">
                         <div className="flex justify-between items-center w-full">
                             <Label className="text-slate-700 dark:text-slate-300 font-semibold text-sm">Password</Label>
@@ -108,7 +115,7 @@ export default function Login() {
                             </p>
                         </div>
 
-                       
+
                         <div className="relative w-full mt-1 flex items-center">
                             <Input placeholder="Enter your password" className="w-full pr-12" />
                             <button
@@ -123,7 +130,7 @@ export default function Login() {
                         <FieldError className="text-xs text-danger mt-1" />
                     </TextField>
 
-                   
+
                     <Button
                         type="submit"
                         isLoading={isSubmitting}
@@ -133,26 +140,26 @@ export default function Login() {
                         Login
                     </Button>
 
-                   
+
                     <div className="relative flex py-2 items-center w-full">
                         <div className="grow border-t border-slate-200 dark:border-slate-800"></div>
                         <span className="shrink mx-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Or continue with</span>
                         <div className="grow border-t border-slate-200 dark:border-slate-800"></div>
                     </div>
 
-                   
+
                     <Button
                         type="button"
                         variant="bordered"
                         onClick={handleGoogleLogin}
                         className="w-full border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 font-semibold py-6 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors"
-                    > 
-                        
+                    >
+
                         <FcGoogle />
                         Sign in with Google
                     </Button>
 
-                
+
                     <p className="text-center text-sm text-slate-500 dark:text-slate-400 mt-4">
                         New to the platform?{" "}
                         <Link href="/register" className="text-[#e2b86b] hover:underline font-semibold transition-colors">

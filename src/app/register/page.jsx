@@ -14,7 +14,7 @@ export default function GetStarted() {
     const [showPass, setShowPass] = useState(false);
     const [showConfirmPass, setShowConfirmPass] = useState(false);
 
-   
+
     const [passwordVal, setPasswordVal] = useState("");
     const [formError, setFormError] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -26,9 +26,9 @@ export default function GetStarted() {
 
         const formData = new FormData(e.currentTarget);
         const data = Object.fromEntries(formData.entries());
-        
 
-        
+
+
         if (data.password !== data.confirmPassword) {
             setFormError("Passwords do not match. Please verify.");
             setIsSubmitting(false);
@@ -36,9 +36,9 @@ export default function GetStarted() {
         }
 
         try {
-            
+
             await new Promise((resolve) => setTimeout(resolve, 1500));
-        
+
             const { data: signUpData, error: signUpError } = await signUp.email({
                 email: data.email,
                 password: data.password,
@@ -46,10 +46,18 @@ export default function GetStarted() {
                 image: data.image,
             })
 
+
+
+            if (signUpError) {
+                toast.error(signUpError.message || "Registration failed. Email might already be taken.");
+                setFormError(signUpError.message || "Registration failed. Email might already be taken.");
+                setIsSubmitting(false);
+                return;
+            }
+
             toast.success("Account created successfully! 🐾");
-            
             router.push("/");
-            
+
         } catch (err) {
             toast.error("Registration failed. Email might already be taken.");
             setFormError("Registration failed. Email might already be taken.");
@@ -65,7 +73,7 @@ export default function GetStarted() {
                 transition={{ duration: 0.5, ease: "easeOut" }}
                 className="w-full max-w-md bg-white dark:bg-[#162224] p-8 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-800/50 text-left"
             >
-              
+
                 <div className="text-center mb-8">
                     <h1 className="text-3xl font-extrabold uppercase tracking-tight text-slate-800 dark:text-white">
                         Get <span className="text-[#45acac]">Started</span>
@@ -76,7 +84,7 @@ export default function GetStarted() {
                     </p>
                 </div>
 
-                
+
                 {formError && (
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
@@ -89,14 +97,14 @@ export default function GetStarted() {
 
                 <Form className="flex flex-col gap-5 w-full" onSubmit={onSubmit}>
 
-                
+
                     <TextField isRequired name="name" type="text">
                         <Label className="text-slate-700 dark:text-slate-300 font-semibold text-sm">Full Name</Label>
                         <Input placeholder="Enter your full name" className="mt-1" />
                         <FieldError className="text-xs text-danger mt-1" />
                     </TextField>
 
-                  
+
                     <TextField
                         isRequired
                         name="email"
@@ -113,14 +121,14 @@ export default function GetStarted() {
                         <FieldError className="text-xs text-danger mt-1" />
                     </TextField>
 
-                 
+
                     <TextField isRequired name="image" type="url">
                         <Label className="text-slate-700 dark:text-slate-300 font-semibold text-sm">Photo URL</Label>
                         <Input placeholder="https://example.com/your-avatar.jpg" className="mt-1" />
                         <FieldError className="text-xs text-danger mt-1" />
                     </TextField>
 
-                   
+
                     <TextField
                         isRequired
                         name="password"
@@ -136,7 +144,7 @@ export default function GetStarted() {
                     >
                         <Label className="text-slate-700 dark:text-slate-300 font-semibold text-sm">Password</Label>
 
-                       
+
                         <div className="relative w-full mt-1 flex items-center">
                             <Input placeholder="Create a strong password" className="w-full pr-12" />
                             <button
@@ -155,7 +163,7 @@ export default function GetStarted() {
                         <FieldError className="text-xs text-danger mt-1" />
                     </TextField>
 
-                    
+
                     <TextField
                         isRequired
                         name="confirmPassword"
@@ -170,7 +178,7 @@ export default function GetStarted() {
                     >
                         <Label className="text-slate-700 dark:text-slate-300 font-semibold text-sm">Confirm Password</Label>
 
-                       
+
                         <div className="relative w-full mt-1 flex items-center">
                             <Input placeholder="Re-enter your password" className="w-full pr-12" />
                             <button
@@ -195,7 +203,7 @@ export default function GetStarted() {
                         Register Account
                     </Button>
 
-                
+
                     <p className="text-center text-sm text-slate-500 dark:text-slate-400 mt-4">
                         Already have an account?{" "}
                         <Link href="/login" className="text-[#e2b86b] hover:underline font-semibold transition-colors">
