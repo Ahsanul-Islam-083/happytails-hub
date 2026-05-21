@@ -12,7 +12,7 @@ const DeleteAlert = ({ pet }) => {
     const router = useRouter();
     const handleDelete = async () => {
         const { data: tokenData } = await authClient.token();
-        const token = tokenData?.accessToken;
+        const token = tokenData?.token;
 
         try {
             const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/allPets/${pet._id}`, {

@@ -167,7 +167,7 @@ const AdoptionSection = ({ pet, user, token }) => {
                         <Button
                             type="submit"
                             isLoading={isSubmitting}
-                            className="w-full bg-[#45acac] text-white font-bold h-11 rounded-xl shadow-md hover:shadow-xl dark:shadow-none transition-all duration-200 hover:-translate-y-0.5 text-sm"
+                            className="w-full bg-[#45acac] text-white rounded-xl shadow-md hover:shadow-xl dark:shadow-none transition-all duration-200 hover:-translate-y-0.5 text-sm"
                         >
                             {!isSubmitting && <Heart size={15} className="mr-1.5 fill-current" />}
                             Adopt {pet?.petName ? pet.petName : "Pet"}

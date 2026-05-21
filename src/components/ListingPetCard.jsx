@@ -3,13 +3,14 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Button } from "@heroui/react";
-import { Eye, Pencil, Trash2, Inbox, DollarSign } from "lucide-react";
+import { Eye, Inbox, DollarSign } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import DeleteAlert from "./DeleteAlert";
 import EditModal from "./EditModal";
+import ListingModal from "./ListingModal";
 
-const ListingPetCard = ({ pet, idx, user ,onRequestView, }) => {
+const ListingPetCard = ({ pet, idx, user, token }) => {
     return (
         <motion.div
             initial={{ opacity: 0, y: 15 }}
@@ -74,14 +75,7 @@ const ListingPetCard = ({ pet, idx, user ,onRequestView, }) => {
                         </Link>
 
                         {/* Requests Button */}
-                        <Button
-                            size="sm"
-                            
-                            className="flex-1 sm:flex-initial bg-[#45acac] text-white hover:bg-[#3ba0a0] rounded-xl  h-9 shadow-md shadow-[#45acac]/10"
-                        >
-                            <Inbox size={14} className="mr-1" />
-                            Requests
-                        </Button>
+                        <ListingModal pet={pet} token={token} />
                     </div>
 
                     {/* Secondary Mutation Controls: Edit & Delete */}

@@ -55,7 +55,7 @@ const MyListings = async () => {
             </div>
             <div className='space-y-6'>
                 {
-                    postedPets.map(pet=><ListingPetCard key={pet?._id} pet={pet} user={user} />)
+                    postedPets.map(pet=><ListingPetCard key={pet?._id} pet={pet} user={user} token={token} />)
                 }
                 
             </div>
