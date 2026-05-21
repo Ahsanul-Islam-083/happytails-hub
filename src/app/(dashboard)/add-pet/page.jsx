@@ -48,7 +48,7 @@ const AddPetListing = () => {
             toast.success(`"${petData.petName}" has been added successfully!`)
             setSuccessMsg(`"${petData.petName}" has been added successfully!`);
             form.reset();
-            router.refresh();
+            router.push('/my-listings');
 
         } catch (err) {
             console.error(err);

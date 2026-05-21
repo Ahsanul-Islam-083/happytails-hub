@@ -1,3 +1,4 @@
+
 import ListingPetCard from '@/components/ListingPetCard';
 import { auth } from '@/lib/auth';
 import { headers } from 'next/headers';
@@ -19,35 +20,42 @@ const MyListings = async () => {
         headers: {
             authorization: `Bearer ${token}`
         }
-    })
-    const postedPets = await res.json()
-    const totalListings = postedPets?.length || 0
+    });
     
-    console.log(postedPets);
+    const postedPets = await res.json() || [];
     
 
+    const totalListings = postedPets.length;
+    
+  
+    const adoptedListings = postedPets.filter(pet => pet?.status?.toLowerCase() === 'adopted').length;
+    const availableListings = totalListings - adoptedListings;
+    
     return (
         <div>
-            <div className=''>
+            <div>
                 <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mt-4 border-b border-slate-200 dark:border-slate-800/80 pb-3.5">
                     My <span className="text-[#45acac]">Listings</span>
                 </h1>
                 <div className='flex flex-col md:flex-row justify-between gap-2 md:gap-8 my-8'>
-                    <div className='border border-[#e2b86b] text-center rounded-2xl py-4 w-full'>
-                        <p className='font-semibold text-lg text-[#45acac]'>
+                    {/* Total Listings Card */}
+                    <div className='border border-[#e2b86b] text-center rounded-2xl py-4 md:py-10 w-full'>
+                        <p className='font-bold text-xl md:text-3xl text-[#45acac]'>
                             {totalListings}
                         </p>
                         <p>Total Listings</p>
                     </div>
-                    <div className='border border-[#e2b86b] text-center rounded-2xl py-4 w-full'>
-                        <p className='font-semibold text-lg text-[#45acac]'>
-                            5
+                    {/* Dynamic Available Card */}
+                    <div className='border border-[#e2b86b] text-center rounded-2xl py-4 md:py-10 w-full'>
+                        <p className='font-bold text-xl md:text-3xl text-[#e2b86b]'>
+                            {availableListings}
                         </p>
                         <p>Available</p>
                     </div>
-                    <div className='border border-[#e2b86b] text-center rounded-2xl py-4 w-full'>
-                        <p className='font-semibold text-lg text-[#45acac]'>
-                            3
+                    {/* Dynamic Adopted Card */}
+                    <div className='border border-[#e2b86b] text-center rounded-2xl py-4 md:py-10 w-full'>
+                        <p className='font-bold text-xl md:text-3xl text-[#239438]'>
+                            {adoptedListings}
                         </p>
                         <p>Adopted</p>
                     </div>
@@ -55,9 +63,10 @@ const MyListings = async () => {
             </div>
             <div className='space-y-6'>
                 {
-                    postedPets.map(pet=><ListingPetCard key={pet?._id} pet={pet} user={user} token={token} />)
+                    postedPets.map(pet => (
+                        <ListingPetCard key={pet?._id} pet={pet} user={user} token={token} />
+                    ))
                 }
-                
             </div>
         </div>
     );
