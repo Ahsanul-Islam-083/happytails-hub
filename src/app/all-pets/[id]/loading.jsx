@@ -44,7 +44,7 @@ const PetDetailsSkeleton = () => {
             </div>
 
             {/* Right: Action panel */}
-            <div className="bg-slate-100 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50 rounded-3xl p-8 shadow-xl flex flex-col items-center justify-center gap-5 min-h-[300px]">
+            <div className="bg-slate-100 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50 rounded-3xl p-8 shadow-xl flex flex-col items-center justify-center gap-5 min-h-75">
               <div className="h-16 w-16 rounded-full bg-slate-200 dark:bg-slate-700 animate-pulse" />
               <div className="h-6 w-48 bg-slate-200 dark:bg-slate-700 rounded animate-pulse" />
               <div className="flex flex-col gap-2 items-center w-full">

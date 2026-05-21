@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import { auth } from './lib/auth'
 import { headers } from 'next/headers'
 
-
+// This function can be marked `async` if using `await` inside
 export async function proxy(request) {
 
     const session = await auth.api.getSession({
@@ -21,5 +21,5 @@ export async function proxy(request) {
 }
 
 export const config = {
-    matcher: [ '/my-listings', '/add-pet', '/my-requests']
+    matcher: ['/all-pets/:id+', '/my-listings', '/add-pet', '/my-requests']
 }
