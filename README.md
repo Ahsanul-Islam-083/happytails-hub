@@ -81,19 +81,6 @@ NEXT_PUBLIC_API_URL=http://localhost:5000
 
 ---
 
-## 🗂️ Project Structure
-
-```
-happytails-hub/
-├── app/                  # Next.js App Router pages & layouts
-│   ├── (main)/           # Public routes (Home, All Pets, Pet Details)
-│   ├── (dashboard)/      # Private dashboard routes
-│   └── auth/             # Login & Register pages
-├── components/           # Reusable UI components
-├── lib/                  # Auth config, DB connection, utilities
-└── public/               # Static assets
-```
-
 ---
 
 ## 🛠️ Tech Stack
