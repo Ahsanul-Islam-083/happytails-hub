@@ -1,4 +1,4 @@
-# 🐾 HappyTails — Hub
+# [🐾 HappyTails — Hub](https://happytails-hub.vercel.app)
 
 > A modern, responsive pet adoption platform where every tail deserves a happy ending.
 
