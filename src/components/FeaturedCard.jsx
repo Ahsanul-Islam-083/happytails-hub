@@ -36,7 +36,7 @@ const FeaturedCard = ({ pet, idx }) => {
 
     >
 
-      {/* Card Thumbnail Area */}
+     
 
       <div className="relative aspect-4/3 w-full overflow-hidden bg-slate-100 dark:bg-slate-900">
 
@@ -56,7 +56,7 @@ const FeaturedCard = ({ pet, idx }) => {
 
 
 
-        {/* Floating Meta Badges */}
+        
 
         <div className="absolute top-3 left-3 z-10 flex gap-2">
 
@@ -80,8 +80,7 @@ const FeaturedCard = ({ pet, idx }) => {
 
 
 
-        {/* DESKTOP HOVER OVERLAY: Hidden on mobile and tablet viewport layers (hidden md:flex) */}
-
+       
         <div className="absolute inset-0 bg-slate-950/40 backdrop-blur-[6px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden md:flex flex-col items-center justify-center gap-3 p-4 z-20">
 
           <div className="flex flex-col gap-2.5 w-full max-w-50">
@@ -138,7 +137,7 @@ const FeaturedCard = ({ pet, idx }) => {
 
 
 
-      {/* Information / Description Metadata Area Layout footer */}
+     
 
       <div className="p-5 flex flex-col flex-1 justify-between text-left">
 
@@ -162,7 +161,7 @@ const FeaturedCard = ({ pet, idx }) => {
 
 
 
-        {/* Lower metadata summary metrics line (Location & Fee) */}
+        
 
         <div className="mt-5 pt-4 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between gap-2 text-slate-500 dark:text-slate-400 text-xs font-semibold">
 
@@ -188,7 +187,7 @@ const FeaturedCard = ({ pet, idx }) => {
 
 
 
-        {/* MOBILE & TABLET LAYOUT BUTTONS: Using your exact styling updates for consistent smaller screen display */}
+       
 
         <div className="mt-5 flex gap-3 w-full md:hidden">
 
@@ -212,35 +211,22 @@ const FeaturedCard = ({ pet, idx }) => {
 
           </Link>
 
-          <Button
+          <Link href={`/all-pets/${pet._id}`} className="flex-1">
 
-            size="sm"
+            <Button
 
-            variant="flat"
+              size="sm"
 
-            className="flex-1 bg-slate-800/80 hover:bg-slate-700 text-slate-200 rounded-xl border border-slate-700/60 shadow-md h-10 font-medium"
+              className="w-full bg-[#e2b86b] hover:bg-[#e2b86bd6] text-white rounded-xl shadow-lg h-10"
 
-          >
+            >
 
-            <Eye size={14} className="mr-1.5" />
+              <Heart size={14} className="mr-1.5 fill-current" />
 
-            Details
+              Adopt
 
-          </Button>
-
-          <Button
-
-            size="sm"
-
-            className="flex-1 bg-[#e2b86b] hover:bg-[#e2b86bd6] text-white rounded-xl shadow-lg h-10"
-
-          >
-
-            <Heart size={14} className="mr-1.5 fill-current" />
-
-            Adopt
-
-          </Button>
+            </Button>
+          </Link>
 
         </div>
 
