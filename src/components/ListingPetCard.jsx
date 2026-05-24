@@ -86,7 +86,7 @@ const ListingPetCard = ({ pet, idx, user, token }) => {
                   
                     <div className="flex items-center justify-start lg:justify-end gap-2 pt-2 lg:pt-0 border-t lg:border-t-0 lg:border-l border-slate-200 dark:border-slate-800/60 lg:pl-3.5 shrink-0">
                         <EditModal pet={pet} user={user} />
-                        <DeleteAlert />
+                        <DeleteAlert pet={pet} />
                     </div>
 
                 </div>
